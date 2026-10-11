@@ -1,0 +1,1188 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>مذكرة محاسبة مالية (1) — ملف واحد بكل الأقسام</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&display=swap" rel="stylesheet">
+<style>
+:root{--red:#dc2626;--rose2:#f43f5e;--pink2:#ec4899;--fuchsia2:#d946ef;--purple2:#a855f7;--violet2:#8b5cf6;--violet:#7c3aed;--deep:#6d28d9;--ink:#1b0b12;--muted:#6d5560;--line:#f3dde4;--redline:#fecaca}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;padding:0 0 70px;font-family:"Cairo","Segoe UI",Tahoma,Arial,sans-serif;background:#fdf6f9;color:var(--ink);direction:rtl;line-height:1.95;font-size:16px}
+.wrap{max-width:1060px;margin:0 auto;padding:0 18px}
+
+/* ===== views ===== */
+.view{display:none}
+.view.on{display:block}
+
+/* ===== topbar ===== */
+.topbar{background:linear-gradient(120deg,#7f1d1d,#4c1d95);color:#fff;padding:10px 0;position:sticky;top:0;z-index:60;box-shadow:0 6px 18px -10px rgba(80,10,50,.85)}
+.topbar .row{display:flex;align-items:center;justify-content:space-between;gap:14px}
+.topbar a{color:#fff;text-decoration:none;font-weight:800;font-size:14px;background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.28);padding:6px 14px;border-radius:999px;cursor:pointer}
+.topbar a:hover{background:rgba(255,255,255,.3)}
+.topbar .crumb{font-size:13.5px;font-weight:700;opacity:.92}
+.chipnav{display:flex;gap:7px;flex-wrap:wrap;margin-top:9px}
+.chipnav a{width:36px;height:36px;border-radius:12px;display:grid;place-items:center;font-weight:900;font-size:13.5px;color:#8a6b76;background:#fff;border:2px solid transparent;cursor:pointer}
+.chipnav a.cur{background:linear-gradient(120deg,var(--c1),var(--c2));color:#fff}
+.chipnav a:hover{transform:translateY(-2px)}
+
+/* ===== hero ===== */
+.hero{background:linear-gradient(135deg,#991b1b 0%,#dc2626 40%,#7c3aed 100%);color:#fff;padding:46px 0 60px;position:relative;overflow:hidden}
+.hero:after{content:"";position:absolute;inset:auto -80px -120px auto;width:340px;height:340px;border-radius:50%;background:rgba(255,255,255,.12)}
+.hero:before{content:"";position:absolute;top:-90px;left:-60px;width:240px;height:240px;border-radius:50%;background:rgba(255,255,255,.1)}
+.hero .tag{display:inline-block;background:rgba(255,255,255,.18);border:1px solid rgba(255,255,255,.35);padding:5px 16px;border-radius:999px;font-size:13px;font-weight:600;margin-bottom:14px}
+.hero h1{margin:0 0 10px;font-size:36px;font-weight:900;line-height:1.35}
+.hero p{margin:0;opacity:.94;font-size:15.5px;max-width:760px}
+.hero .stats{display:flex;gap:12px;flex-wrap:wrap;margin-top:24px;position:relative;z-index:2}
+.stat{background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.3);border-radius:14px;padding:10px 18px;min-width:120px}
+.stat b{display:block;font-size:22px;font-weight:900}
+.stat span{font-size:12.5px;opacity:.92}
+
+/* ===== index grid ===== */
+.menu-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:18px;margin:26px 0}
+.menu-card{display:block;text-decoration:none;color:inherit;background:#fff;border-radius:22px;padding:24px 20px 20px;border:1px solid var(--line);position:relative;overflow:hidden;transition:.2s;box-shadow:0 12px 28px -20px rgba(120,20,60,.4);cursor:pointer}
+.menu-card:hover{transform:translateY(-5px);box-shadow:0 22px 40px -22px rgba(120,20,60,.5);border-color:#f5b8c6}
+.menu-card .blob{position:absolute;top:-46px;left:-46px;width:124px;height:124px;border-radius:50%;opacity:.14}
+.menu-card .ico{width:66px;height:66px;border-radius:19px;display:grid;place-items:center;color:#fff;margin-bottom:14px;position:relative;box-shadow:0 10px 20px -12px rgba(80,10,50,.6)}
+.menu-card .ico svg{width:34px;height:34px}
+.menu-card h3{margin:0 0 6px;font-size:17.5px;font-weight:900;line-height:1.5}
+.menu-card p{margin:0;font-size:13.5px;color:var(--muted);line-height:1.8}
+.menu-card .go{margin-top:14px;display:inline-flex;align-items:center;gap:6px;font-size:13px;font-weight:900;color:var(--pink)}
+.menu-card .no{position:absolute;top:16px;left:18px;font-size:12.5px;font-weight:900;color:#b39aa3;background:#fdf1f4;border-radius:999px;padding:2px 10px}
+.pagehead{margin:26px 0 6px}
+.pagehead h1{font-size:27px;font-weight:900;margin:0 0 6px;line-height:1.45}
+.pagehead p{margin:0;color:var(--muted);font-size:14.5px}
+.hint{background:#faf5ff;border:2px dashed #d8b4fe;border-radius:14px;padding:12px 16px;margin:18px 0;font-size:13.5px;color:#5b21b6;font-weight:700}
+
+/* ===== chapter card ===== */
+.ch{margin-top:22px;background:#fff;border-radius:22px;overflow:hidden;box-shadow:0 14px 34px -20px rgba(120,20,60,.32);border:1px solid var(--line)}
+.ch-head{padding:22px 24px;color:#fff;display:flex;align-items:center;gap:16px}
+.ch-head .badge{width:52px;height:52px;border-radius:16px;background:rgba(255,255,255,.2);border:2px solid rgba(255,255,255,.45);display:grid;place-items:center;font-size:22px;font-weight:900;flex:0 0 52px}
+.ch-head h2{margin:0;font-size:23px;font-weight:900}
+.ch-head small{display:block;font-size:13px;opacity:.92;font-weight:600;margin-top:3px}
+.ch-body{padding:24px}
+.c-indigo{background:linear-gradient(120deg,#dc2626,#ef4444)}
+.c-teal{background:linear-gradient(120deg,#e11d48,#f43f5e)}
+.c-amber{background:linear-gradient(120deg,#be185d,#ec4899)}
+.c-rose{background:linear-gradient(120deg,#a21caf,#d946ef)}
+.c-emerald{background:linear-gradient(120deg,#9333ea,#a855f7)}
+.c-fuchsia{background:linear-gradient(120deg,#7c3aed,#8b5cf6)}
+.c-sky{background:linear-gradient(120deg,#6d28d9,#7c3aed)}
+.c-slate{background:linear-gradient(120deg,#4c1d95,#6d28d9)}
+h3.sec{font-size:18px;font-weight:900;margin:26px 0 12px;padding-right:14px;border-right:6px solid var(--red);line-height:1.5}
+h3.sec:first-child{margin-top:4px}
+h4.sub{font-size:15.5px;font-weight:800;margin:18px 0 8px;color:#3b0d1e}
+p{margin:8px 0}ul,ol{margin:8px 0;padding-right:22px}li{margin:5px 0}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(215px,1fr));gap:12px;margin:14px 0}
+.card{border:2px solid var(--line);border-radius:16px;padding:14px 16px;background:#fff;border-top:5px solid var(--red)}
+.card h5{margin:0 0 6px;font-size:14.5px;font-weight:900}
+.card p,.card ul{margin:4px 0;font-size:14px;color:#4a2b36}
+.card.t2{border-top-color:var(--rose2)}.card.t3{border-top-color:var(--pink2)}.card.t4{border-top-color:var(--fuchsia2)}
+.card.t5{border-top-color:var(--purple2)}.card.t6{border-top-color:var(--violet2)}.card.t7{border-top-color:var(--violet)}.card.t8{border-top-color:var(--deep)}
+.note{border-radius:14px;padding:13px 16px;margin:14px 0;font-size:14.5px;background:#fef2f2;border-right:6px solid var(--red)}
+.note.warn{background:#fff1f2;border-right-color:#be123c}
+.note.tip{background:#fdf4ff;border-right-color:#a21caf}
+.note.mem{background:#faf5ff;border-right-color:var(--violet)}
+.note b{font-weight:900}
+.note .lbl{display:block;font-weight:900;font-size:13px;margin-bottom:3px}
+.formula{background:linear-gradient(135deg,#7f1d1d,#4c1d95);color:#fff;border-radius:16px;padding:18px 20px;text-align:center;margin:16px 0;font-weight:900;font-size:17px;line-height:2.1;box-shadow:0 14px 26px -16px rgba(76,29,149,.7)}
+.formula .hl{color:#fca5a5}.formula .hl2{color:#e9d5ff}
+.formula small{display:block;font-weight:600;font-size:12.5px;opacity:.8;margin-top:6px}
+.tw{overflow-x:auto;margin:14px 0;border-radius:14px;border:1px solid var(--line)}
+table{border-collapse:collapse;width:100%;font-size:14px;background:#fff;min-width:420px}
+th{background:#fdf1f4;padding:10px 12px;font-weight:900;text-align:right;border-bottom:2px solid var(--line);font-size:13.5px}
+td{padding:9px 12px;border-bottom:1px solid #fdf1f4;vertical-align:top}
+tr:last-child td{border-bottom:none}
+tbody tr:hover{background:#fffafc}
+.flow{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin:16px 0}
+.step{flex:1 1 120px;background:#fff;border:2px solid var(--line);border-radius:13px;padding:10px 12px;text-align:center;font-size:13.5px;font-weight:700}
+.step b{display:block;font-size:11.5px;color:var(--muted);font-weight:800;margin-bottom:3px}
+.arw{color:#f0a6b5;font-weight:900;font-size:17px}
+.step.on{border-color:var(--red);background:#fef2f2}.step.on2{border-color:var(--rose2);background:#fff1f2}
+.step.on3{border-color:var(--pink2);background:#fdf2f8}.step.on4{border-color:var(--fuchsia2);background:#fdf4ff}
+.step.on5{border-color:var(--purple2);background:#faf5ff}
+.pills{display:flex;flex-wrap:wrap;gap:8px;margin:12px 0}
+.pill{border-radius:999px;padding:6px 15px;font-size:13.5px;font-weight:800;background:#fef2f2;color:#991b1b;border:1.5px solid var(--redline)}
+.pill.g{background:#fff1f2;color:#9f1239;border-color:#fecdd3}
+.pill.a{background:#fdf4ff;color:#86198f;border-color:#f5d0fe}
+.pill.r{background:#fdf2f8;color:#9d174d;border-color:#fbcfe8}
+.pill.s{background:#faf5ff;color:#6b21a8;border-color:#e9d5ff}
+.pill.v{background:#f5f3ff;color:#5b21b6;border-color:#ddd6fe}
+.mnem{background:linear-gradient(135deg,#fff1f2,#fce7f3);border:2px dashed #f472b6;border-radius:16px;padding:14px 18px;margin:16px 0}
+.mnem .t{font-weight:900;color:#9f1239;font-size:14px;margin-bottom:6px}
+.mnem .w{font-size:19px;font-weight:900;color:#be185d;margin:6px 0}
+.mnem p{font-size:14px;margin:4px 0;color:#831843}
+.je{background:#fffafc;border:2px solid var(--line);border-radius:14px;padding:12px 16px;margin:12px 0}
+.je .r{display:flex;justify-content:space-between;gap:12px;padding:3px 0;font-size:14px;font-weight:700}
+.je .r.d{padding-right:0}
+.je .r.c{padding-right:34px;color:#a21caf}
+.je .r .v{color:var(--red);font-weight:900;white-space:nowrap}
+.je .ttl{font-weight:900;font-size:13px;color:var(--muted);margin-bottom:6px}
+.tree{margin:14px 0}
+.tree .root{background:linear-gradient(120deg,#dc2626,#7c3aed);color:#fff;font-weight:900;border-radius:12px;padding:10px 16px;display:inline-block;font-size:15px;margin-bottom:10px}
+.tree .row{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:10px}
+.tree .leaf{border:2px solid var(--line);border-radius:12px;padding:9px 12px;font-size:13.5px;font-weight:700;background:#fff;border-right:5px solid var(--fuchsia2)}
+.pager{display:flex;justify-content:space-between;gap:12px;margin:26px 12px 10px;flex-wrap:wrap}
+.pager a{flex:1 1 200px;text-decoration:none;background:#fff;border:2px solid var(--line);border-radius:16px;padding:12px 16px;cursor:pointer}
+.pager a:hover{transform:translateY(-3px);box-shadow:0 12px 24px -14px rgba(120,20,60,.45)}
+.pager a span{display:block;font-size:12px;color:var(--muted);font-weight:800;margin-bottom:2px}
+.pager a b{font-size:14.5px;font-weight:900;color:#3b0d1e}
+.pager a.next{text-align:left}
+.pager a.dis{opacity:.35;pointer-events:none}
+.footer{margin-top:36px;text-align:center;color:var(--muted);font-size:13px;padding:18px}
+@media(max-width:640px){.hero h1{font-size:26px}.ch-body{padding:16px}.ch-head{padding:16px}.arw{display:none}.menu-grid{grid-template-columns:1fr}.pagehead h1{font-size:22px}}
+</style>
+</head>
+<body>
+
+<div class="topbar" id="bar" style="display:none">
+  <div class="wrap">
+    <div class="row">
+      <a data-go="home">&#8594; رجوع إلى الفهرس</a>
+      <span class="crumb" id="crumb"></span>
+    </div>
+    <div class="chipnav" id="chips"></div>
+  </div>
+</div>
+
+<!-- ================= HOME ================= -->
+<div class="view on" id="home">
+  <header class="hero">
+    <div class="wrap">
+      <span class="tag">مقرر محاسبة مالية (1) — Financial Accounting 1</span>
+      <h1>ملخص المذاكرة السريعة<br>اختر القسم من الأيقونات</h1>
+      <p>خلاصة مركّزة من الكتاب (86 صفحة) موزّعة على 8 أقسام — اضغط على أي أيقونة لتفتح القسم فورًا.</p>
+      <div class="stats">
+        <div class="stat"><b>7</b><span>فصول رئيسية</span></div>
+        <div class="stat"><b>8</b><span>أقسام</span></div>
+        <div class="stat"><b>9</b><span>مبادئ GAAP</span></div>
+        <div class="stat"><b>8</b><span>خطوات الدورة المحاسبية</span></div>
+      </div>
+    </div>
+  </header>
+
+  <div class="wrap">
+    <div class="pagehead" style="margin-top:30px">
+      <h1 style="font-size:22px">أقسام المذكرة</h1>
+      <p>كل قسم يفتح في نفس الصفحة، ومعك شريط الأيقونات في الأعلى للتنقل بين الأقسام، و«السابق / التالي» في الأسفل.</p>
+    </div>
+
+    <div class="menu-grid">
+      <a class="menu-card" data-go="ch1">
+        <span class="blob" style="background:#dc2626"></span><span class="no">القسم 1</span>
+        <span class="ico" style="background:linear-gradient(135deg,#dc2626,#ef4444)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="12" width="4.2" height="9" rx="1.2"/><rect x="9.9" y="7" width="4.2" height="14" rx="1.2"/><rect x="16.8" y="3" width="4.2" height="18" rx="1.2"/></svg></span>
+        <h3>الإطار النظري للمحاسبة المالية</h3>
+        <p>المفهوم · الأهداف · النشاط والوظائف · الفروض والمبادئ · الأسس المحاسبية</p>
+        <span class="go">افتح القسم &#8592;</span>
+      </a>
+      <a class="menu-card" data-go="ch2">
+        <span class="blob" style="background:#e11d48"></span><span class="no">القسم 2</span>
+        <span class="ico" style="background:linear-gradient(135deg,#e11d48,#f43f5e)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="3" width="16" height="18" rx="2.5"/><path d="M8.5 9h7M8.5 13h7M8.5 17h4"/></svg></span>
+        <h3>عرض وإعداد القوائم المالية</h3>
+        <p>قائمة الدخل (تقليدي ومستحدث) · قائمة المركز المالي · تصنيف الحسابات</p>
+        <span class="go">افتح القسم &#8592;</span>
+      </a>
+      <a class="menu-card" data-go="ch3">
+        <span class="blob" style="background:#be185d"></span><span class="no">القسم 3</span>
+        <span class="ico" style="background:linear-gradient(135deg,#be185d,#ec4899)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3.5v17M6 7.5h12M6 7.5 3 13.5a3.2 3.2 0 0 0 6 0zM18 7.5l-3 6a3.2 3.2 0 0 0 6 0z"/><path d="M8.5 20.5h7"/></svg></span>
+        <h3>معادلة الميزانية</h3>
+        <p>الأصول = الخصوم + حقوق الملكية · القيد المزدوج · مثال محلول</p>
+        <span class="go">افتح القسم &#8592;</span>
+      </a>
+      <a class="menu-card" data-go="ch4">
+        <span class="blob" style="background:#a21caf"></span><span class="no">القسم 4</span>
+        <span class="ico" style="background:linear-gradient(135deg,#a21caf,#d946ef)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20.5 12a8.5 8.5 0 1 1-2.9-6.4"/><path d="M20.5 3.5v6h-6"/></svg></span>
+        <h3>الدورة المحاسبية وتحليل العمليات</h3>
+        <p>دفتر اليومية · دفتر الأستاذ · الترحيل والترصيد · ميزان المراجعة</p>
+        <span class="go">افتح القسم &#8592;</span>
+      </a>
+      <a class="menu-card" data-go="ch5">
+        <span class="blob" style="background:#9333ea"></span><span class="no">القسم 5</span>
+        <span class="ico" style="background:linear-gradient(135deg,#9333ea,#a855f7)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2.5h12v19l-3-2-3 2-3-2-3 2z"/><path d="M9 7.5h6M9 11.5h6M9 15.5h4"/></svg></span>
+        <h3>العمليات التجارية للمشروع</h3>
+        <p>قيدا التحصيل والسداد · الشيكات · الخصومات · المردودات والمسموحات</p>
+        <span class="go">افتح القسم &#8592;</span>
+      </a>
+      <a class="menu-card" data-go="ch6">
+        <span class="blob" style="background:#7c3aed"></span><span class="no">القسم 6</span>
+        <span class="ico" style="background:linear-gradient(135deg,#7c3aed,#8b5cf6)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="13.5" rx="2.5"/><path d="M7 8.8h6M7 12.4h4"/><circle cx="17.2" cy="17.6" r="3"/><path d="M15.6 20.2 15 23l2.2-1.3L19.4 23l-.6-2.8"/></svg></span>
+        <h3>الأوراق التجارية — الكمبيالات</h3>
+        <p>السند الإذني · 7 احتمالات للتصرف · التظهير · الأجيو · التجديد والإفلاس</p>
+        <span class="go">افتح القسم &#8592;</span>
+      </a>
+      <a class="menu-card" data-go="ch7">
+        <span class="blob" style="background:#6d28d9"></span><span class="no">القسم 7</span>
+        <span class="ico" style="background:linear-gradient(135deg,#6d28d9,#7c3aed)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3.2 2.2 20.3h19.6z"/><path d="M12 9.2v5"/><circle cx="12" cy="17.4" r=".9"/></svg></span>
+        <h3>معالجة الأخطاء المحاسبية</h3>
+        <p>أنواع الأخطاء الأربعة · الطريقة المطوّلة والمختصرة · مثال محلول</p>
+        <span class="go">افتح القسم &#8592;</span>
+      </a>
+      <a class="menu-card" data-go="cheat">
+        <span class="blob" style="background:#4c1d95"></span><span class="no">ملحق</span>
+        <span class="ico" style="background:linear-gradient(135deg,#4c1d95,#6d28d9)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="m12 3 2.8 5.7 6.2.9-4.5 4.4 1.1 6.2L12 17.3l-5.6 2.9 1.1-6.2L3 9.6l6.2-.9z"/></svg></span>
+        <h3>ورقة المراجعة الأخيرة</h3>
+        <p>كل القوانين والمعادلات وطبيعة الحسابات في صفحة واحدة</p>
+        <span class="go">افتح القسم &#8592;</span>
+      </a>
+    </div>
+
+    <div class="hint">هذا الملف يحتوي كل الأقسام داخله — التنقل يعمل في أي مكان بدون إنترنت وبدون ملفات خارجية.</div>
+    <div class="footer">ملخص مذاكرة — مقرر محاسبة مالية (1) · أكاديمية السادات للعلوم الإدارية (2022م / 1444هـ)</div>
+  </div>
+</div>
+
+<!-- ================= CH1 ================= -->
+<div class="view" id="ch1">
+<div class="wrap">
+  <div class="pagehead"><h1>الإطار النظري للمحاسبة المالية</h1><p>الأساس اللي كل حاجة بعده مبنية عليه.</p></div>
+  <section class="ch">
+    <div class="ch-head c-indigo"><div class="badge">1</div><div><h2>الإطار النظري للمحاسبة المالية</h2><small>المفهوم · الأهداف · الفروض والمبادئ</small></div></div>
+    <div class="ch-body">
+      <h3 class="sec">1) مفهوم المحاسبة المالية — تطوّر على 3 مراحل</h3>
+      <div class="flow">
+        <div class="step on"><b>المرحلة 1</b>عملية فنية<br><small style="font-weight:600">تسجيل · تبويب · تلخيص · استخلاص نتائج</small></div>
+        <span class="arw">◀</span>
+        <div class="step on2"><b>المرحلة 2</b>نشاط خدمي<br><small style="font-weight:600">معلومات كمية مالية لاتخاذ القرارات</small></div>
+        <span class="arw">◀</span>
+        <div class="step on3"><b>المرحلة 3</b>نظام معلومات<br><small style="font-weight:600">تسجيل → عرض → توصيل للأطراف</small></div>
+      </div>
+      <h4 class="sub">أهم 5 سمات للمحاسبة</h4>
+      <div class="pills">
+        <span class="pill">لغة المال</span><span class="pill g">نشاط خدمي</span><span class="pill a">توفير وتوصيل البيانات المالية</span>
+        <span class="pill r">نتائج الأعمال عن فترة زمنية محددة</span><span class="pill s">الاهتمام بأصحاب العلاقة</span>
+      </div>
+
+      <h3 class="sec">2) أهداف المحاسبة المالية (4)</h3>
+      <div class="cards">
+        <div class="card"><h5>1. توفير وتوصيل المعلومات</h5><p>كل المعلومات المالية التي كان النشاط طرفًا فيها لمساعدة متخذي القرارات.</p></div>
+        <div class="card t2"><h5>2. إظهار نتائج القرارات الماضية</h5><p>بيان أثر التصرفات السابقة على فترات دورية منتظمة.</p></div>
+        <div class="card t3"><h5>3. المحافظة على ممتلكات المشروع</h5><p>الحماية من السرقة والضياع عن طريق أساليب الجرد الفعلي.</p></div>
+        <div class="card t4"><h5>4. المساعدة في التخطيط والرقابة</h5><p>أداة للتعرف على الماضي والحاضر وتوقعات المستقبل.</p></div>
+      </div>
+
+      <h3 class="sec">3) نشاط المحاسبة (3) ووظائفها (2)</h3>
+      <div class="cards">
+        <div class="card t5"><h5>التسجيل</h5><p>كتابة/قيد العملية في سجل أو دفتر.</p></div>
+        <div class="card t6"><h5>التبويب</h5><p>ترتيب البيانات وتصنيفها لمجموعات متجانسة.</p></div>
+        <div class="card t7"><h5>التلخيص</h5><p>تركيز المعلومات في صورة معلومات مفيدة.</p></div>
+      </div>
+      <div class="cards">
+        <div class="card t8"><h5>وظيفة القياس — Measurement</h5><ul><li>قياس الموارد (الأصول)</li><li>قياس الحقوق والالتزامات (الخصوم)</li><li>قياس التغيرات (أرباح/خسائر) لفترة زمنية</li><li>التعبير عن القياس بصورة نقدية</li></ul></div>
+        <div class="card t4"><h5>وظيفة الاتصال — Communication</h5><p>تبدأ حيث تنتهي وظيفة القياس، ويتم الاتصال بعرض النتائج لمن يهمه الأمر عن طريق القوائم المالية.</p></div>
+      </div>
+      <h4 class="sub">النشاط المحاسبي في 4 مراحل (ترتيب مهم للحفظ)</h4>
+      <div class="flow">
+        <div class="step on"><b>Recording</b>التسجيل في اليومية</div>
+        <span class="arw">◀</span>
+        <div class="step on2"><b>Classification</b>التبويب في الأستاذ</div>
+        <span class="arw">◀</span>
+        <div class="step on3"><b>Summarization</b>التلخيص بميزان المراجعة</div>
+        <span class="arw">◀</span>
+        <div class="step on5"><b>Presentation</b>إعداد القوائم المالية</div>
+      </div>
+
+      <h3 class="sec">4) مجال عمل المحاسبة — 3 اتجاهات مؤثّرة</h3>
+      <div class="cards">
+        <div class="card t2"><h5>الموارد محدودة</h5><p>الموارد الاقتصادية في العالم محدودة، والمحاسبة تأخذ ذلك في الاعتبار.</p></div>
+        <div class="card t3"><h5>الأفكار القانونية والقيم</h5><p>تراعي الأفكار القانونية والقيم التي يقرها المجتمع.</p></div>
+        <div class="card t4"><h5>التفويض في الرقابة</h5><p>رقابة على الممتلكات للغير (مجلس الإدارة والمديرين).</p></div>
+      </div>
+
+      <h3 class="sec">5) التطور التاريخي — الثورات المحاسبية الثلاثة</h3>
+      <p>بدأت صورة حسابية بسيطة ← ثم صورة محاسبية لها قواعد وأسس.</p>
+      <div class="mnem"><div class="t">حِيلة الحفظ</div><div class="w">«بسيطة → قواعد → نظام»</div><p>تعدّدت <b>الحاجة</b> فتعدّد <b>التطوّر</b> — والمحاسبة علم وليد حاجة المجتمع.</p></div>
+
+      <h3 class="sec">6) فروع المحاسبة (8)</h3>
+      <div class="cards">
+        <div class="card"><h5>1. المالية</h5><p>Financial Accounting</p></div>
+        <div class="card t2"><h5>2. التكاليف</h5><p>Cost Accounting</p></div>
+        <div class="card t3"><h5>3. الإدارية</h5><p>Managerial Accounting</p></div>
+        <div class="card t4"><h5>4. الحكومية</h5><p>Governmental Accounting</p></div>
+        <div class="card t5"><h5>5. القومية</h5><p>National Accounting</p></div>
+        <div class="card t6"><h5>6. المراجعة</h5><p>Auditing</p></div>
+        <div class="card t7"><h5>7. الضريبية</h5><p>Tax Accounting</p></div>
+        <div class="card t8"><h5>8. البيئية</h5><p>Environmental Accounting</p></div>
+      </div>
+      <div class="note tip"><span class="lbl">نقطة سؤال متكرر</span>تقارير <b>محاسبة التكاليف والمحاسبة الإدارية</b> هدفها <b>خدمة إدارة المنشأة</b> (الأطراف الداخلية) — وليست خدمة الأطراف الخارجية.</div>
+
+      <h3 class="sec">7) القوائم المالية (4) — الناتج النهائي للنظام المحاسبي</h3>
+      <div class="tree">
+        <div class="root">القوائم المالية</div>
+        <div class="row">
+          <div class="leaf">قائمة المركز المالي (الميزانية العمومية)</div>
+          <div class="leaf">قائمة الدخل</div>
+          <div class="leaf">قائمة التدفقات النقدية</div>
+          <div class="leaf">قائمة التغيرات في حقوق الملكية</div>
+        </div>
+      </div>
+      <div class="note"><span class="lbl">مهم جدًا</span>قائمة <b>التدفقات النقدية</b> هي القائمة <b>الوحيدة</b> التي تُعدّ وفقًا للأساس <b>النقدي</b>، وباقي القوائم على أساس <b>الاستحقاق</b>.</div>
+      <h4 class="sub">عناوين أي قائمة مالية = 3 عناصر ثابتة</h4>
+      <div class="pills"><span class="pill">اسم المنشأة</span><span class="pill g">اسم القائمة</span><span class="pill a">تاريخ الإعداد أو الفترة المالية</span></div>
+
+      <h3 class="sec">8) مستخدمو المعلومات المحاسبية</h3>
+      <div class="cards">
+        <div class="card t2"><h5>داخليون</h5><p><b>الإدارة</b> بمستوياتها: تخطيط وتنظيم وتوجيه ورقابة (الموارد البشرية، المالية، التسويق).</p></div>
+        <div class="card t4"><h5>خارجيون</h5><ul><li>المستثمرون</li><li>البنوك وحملة السندات</li><li>الدائنون</li><li>العملاء</li><li>العمال ونقابات العمال</li><li>المؤسسات الحكومية</li></ul></div>
+      </div>
+
+      <h3 class="sec">9) أنواع منشآت الأعمال (الشكل القانوني)</h3>
+      <div class="cards">
+        <div class="card t5"><h5>الأول: المنشأة الفردية — Sole Proprietorship</h5><p>يمتلكها شخص واحد، وغالبًا المالك هو المدير، ومسؤول مسؤولية شخصية عن الديون. ومن الناحية المحاسبية تُعدّ <b>وحدة محاسبية مستقلة عن المالك</b>.</p><p style="font-weight:800;color:#7c3aed">← هذا النوع هو «محور دراستنا» في هذا المقرر.</p></div>
+        <div class="card t6"><h5>الثاني: شركات الأشخاص — Partnerships</h5><p>يمتلكها شخصان أو أكثر اختياريًا، تقوم على الاعتبار الشخصي والثقة المتبادلة. عقد الشركة يوضّح: حصص الشركاء، الحقوق والواجبات، توزيع الأرباح والخسائر، تسوية المسحوبات، انفصال الشريك.</p></div>
+        <div class="card t7"><h5>الثالث: شركات الأموال</h5><ul><li>شركة المساهمة</li><li>الشركة ذات المسؤولية المحدودة</li><li>شركة التوصية بالأسهم</li></ul></div>
+      </div>
+
+      <h3 class="sec">10) أهم الفروض والمبادئ المحاسبية</h3>
+      <h4 class="sub">أولًا: الفروض المحاسبية (4)</h4>
+      <div class="cards">
+        <div class="card"><h5>1. الشخصية المعنوية المستقلة</h5><p>الشركة ذات شخصية اعتبارية مستقلة عن ملاكها.</p></div>
+        <div class="card t2"><h5>2. الاستمرارية</h5><p>الشركة أُنشئت لتستمر في نشاطها لفترة معينة ينص عليها العقد.</p></div>
+        <div class="card t3"><h5>3. القياس النقدي</h5><p>تُقاس المعاملات نقديًا فقط، لا الكميات ولا الحالة المعنوية للموظف.</p></div>
+        <div class="card t4"><h5>4. ثبات وحدة النقد</h5><p>ثبات قيمة وحدة النقد — معرّض للانتقاد بسبب تذبذب القوة الشرائية.</p></div>
+      </div>
+      <h4 class="sub">ثانيًا: المبادئ المتعارف عليها (GAAP) — 9 مبادئ</h4>
+      <div class="cards">
+        <div class="card"><h5>1. التكلفة التاريخية</h5><p>تسجيل المعاملات بما أُنفق/حُصِّل فعلًا والاحتفاظ بالقيم دون تغيير طالما مؤيدة بالمستندات. <span style="color:#be123c;font-weight:800">(موجّه إليه انتقادات)</span></p></div>
+        <div class="card t2"><h5>2. الدورية</h5><p>قياس أرباح/خسائر كل فترة مالية وإعداد المركز المالي في نهايتها (غالبًا سنة ميلادية). <b>يُشتق منه فرض الاستمرارية.</b></p></div>
+        <div class="card t3"><h5>3. الاستحقاق</h5><p>تسجيل كل معاملات الشركة التي <b>استحقت</b> عن الفترة المالية.</p></div>
+        <div class="card t4"><h5>4. مقابلة الإيرادات بالمصروفات</h5><p>قياس الربح بمقارنة إيرادات الفترة بمصروفات <b>نفس الفترة</b>.</p></div>
+        <div class="card t5"><h5>5. الإفصاح والشفافية</h5><p>الإفصاح عن كل النتائج والمعاملات بالقوائم، في حدود المتاح.</p></div>
+        <div class="card t6"><h5>6. الثبات</h5><p>الثبات في القياس والإفصاح لتسهيل المقارنة بين السنوات (مع جواز التغيير بشرط الإفصاح الصريح).</p></div>
+        <div class="card t7"><h5>7. الموضوعية (عدم التحيز)</h5><p>القياس الموضوعي دون مقاييس نقدية شخصية أو تحيزات.</p></div>
+        <div class="card t8"><h5>8. الحيطة والحذر (التحفظ)</h5><p>الأخذ في الحساب الخسائر المحتملة وتسجيلها، وعدم تسجيل الأرباح المتوقعة إلا إذا حدثت فعلًا.</p></div>
+        <div class="card"><h5>9. الفصل بين المصروف الإيرادي والرأسمالي</h5><p>مقابل استخدام/إهلاك الأصول الرأسمالية يدخل ضمن المصروفات الإيرادية (الجارية).</p></div>
+      </div>
+      <div class="mnem"><div class="t">حِيلة الحفظ — المبادئ التسعة</div><div class="w">«تَكَلَّم دُوَرَ اسْتَقْبَل مُقَابِلًا ... أفِصِحْ ثَبِّتْ بِمَوْضُوعِيَّةٍ واحْذَرْ وافْصِلْ»</div><p><b>تكلفة · دورية · استحقاق · مقابلة · إفصاح · ثبات · موضوعية · حيطة · فصل</b></p></div>
+
+      <h3 class="sec">11) الأسس المحاسبية — الفرق الجوهري</h3>
+      <div class="tw">
+        <table>
+          <thead><tr><th>وجه المقارنة</th><th>أساس الاستحقاق</th><th>الأساس النقدي</th></tr></thead>
+          <tbody>
+            <tr><td><b>إيرادات الفترة</b></td><td>التي <b>تُكتسب أو تحدث</b> خلال الفترة — حصلت نقدًا أو لا</td><td>التي <b>تُحصَّل</b> فعليًا خلال الفترة</td></tr>
+            <tr><td><b>مصروفات الفترة</b></td><td>التي <b>تُتحمَّل</b> في سبيل الحصول على الإيراد — دُفعت أو لا</td><td>التي <b>تُسدَّد</b> فعلًا خلال الفترة</td></tr>
+            <tr><td><b>متى تُسجَّل؟</b></td><td>عند تحقّق الاستحقاق (البيع/الخدمة)</td><td>عند التحصيل أو السداد النقدي فقط</td></tr>
+            <tr><td><b>تُطبَّق على</b></td><td>الدخل · المركز المالي · حقوق الملكية</td><td><b>قائمة التدفقات النقدية فقط</b></td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="note warn"><span class="lbl">أسئلة اختيار من متعدد في كتابك — الإجابات</span>
+        (1) المحاسبة المالية تهتم بقياس الأحداث الاقتصادية: <b>التاريخية والمستقبلية</b>.<br>
+        (2) تقارير التكاليف والإدارية تهدف إلى: <b>خدمة إدارة المنشأة</b>.<br>
+        (3) عدم تسجيل المعاملات ما لم يكن هناك دليل على حدوثها = مبدأ <b>الموضوعية</b>.<br>
+        (4) توصيل كل الحقائق الهامة لمستخدمي المعلومات = مبدأ <b>الإفصاح والشفافية</b>.
+      </div>
+    </div>
+  </section>
+</div>
+</div>
+
+<!-- ================= CH2 ================= -->
+<div class="view" id="ch2">
+<div class="wrap">
+  <div class="pagehead"><h1>عرض وإعداد القوائم المالية</h1><p>قائمة الدخل + قائمة المركز المالي، بشكلها التقليدي والمستحدَث.</p></div>
+  <section class="ch">
+    <div class="ch-head c-teal"><div class="badge">2</div><div><h2>عرض وإعداد القوائم المالية</h2><small>قائمة الدخل + قائمة المركز المالي</small></div></div>
+    <div class="ch-body">
+      <div class="note"><span class="lbl">الهدف الرئيسي للمحاسبة المالية</span>توصيل المعلومات المتعلقة بالأحداث الاقتصادية إلى <b>مستخدمي المعلومات</b> لاتخاذ القرارات. والقوائم المالية هي <b>المخرج الأساسي</b> لنظام المعلومات المحاسبي، وتُعدّ <b>المخاطبة الرئيسية للأطراف الخارجية</b>.</div>
+
+      <h3 class="sec">1) قائمة الدخل — Income Statement</h3>
+      <div class="note"><span class="lbl">تعريف</span>كشف مرتّب بطريقة معينة تُوضَع فيه <b>الإيرادات والمصروفات</b> التي تخص نشاط الشركة عن الفترة المالية، وبمقارنتها يُستخلَص <b>نتيجة الأعمال</b> من ربح أو خسارة.</div>
+      <div class="formula">الإيرادات <span class="hl">−</span> المصروفات <span class="hl">=</span> <span class="hl2">الربح أو الخسارة</span><small>3 احتمالات للنتيجة ↓</small></div>
+      <div class="cards">
+        <div class="card t2"><h5>تساوي الطرفين</h5><p>الإيرادات = المصروفات ← <b>لا ربح ولا خسارة</b></p></div>
+        <div class="card t5"><h5>الإيرادات أكبر</h5><p>الإيرادات &gt; المصروفات ← <b>أرباح</b></p></div>
+        <div class="card t4"><h5>المصروفات أكبر</h5><p>المصروفات &gt; الإيرادات ← <b>خسائر</b></p></div>
+      </div>
+
+      <h3 class="sec">2) شكل قائمة الدخل التقليدي (الشركات الصناعية)</h3>
+      <div class="flow">
+        <div class="step on"><b>1</b>حـ/ تكلفة الإنتاج (التشغيل)</div>
+        <span class="arw">◀</span>
+        <div class="step on2"><b>2</b>حـ/ المتاجرة</div>
+        <span class="arw">◀</span>
+        <div class="step on3"><b>3</b>حـ/ الأرباح والخسائر</div>
+      </div>
+      <div class="note warn"><span class="lbl">فرق مهم</span>في <b>الشركات التجارية</b> لا يُعدّ حـ/ تكلفة الإنتاج (التشغيل) — نبدأ مباشرة بحـ/ المتاجرة.</div>
+
+      <h4 class="sub">أ) حـ/ المتاجرة — يُنتج «مجمل الربح»</h4>
+      <div class="tw">
+        <table>
+          <thead><tr><th>مدين</th><th>دائن</th></tr></thead>
+          <tbody>
+            <tr><td>بضاعة (مخزون) أول المدة</td><td>المبيعات</td></tr>
+            <tr><td>المشتريات</td><td>مردودات المشتريات</td></tr>
+            <tr><td>مصروفات نقل المشتريات</td><td>بضاعة آخر المدة <b>(بالتكلفة أو السوق أيهما أقل)</b></td></tr>
+            <tr><td>عمولة وكلاء الشراء</td><td>رصيد (مجمل الخسارة) إن وُجد</td></tr>
+            <tr><td>مردودات المبيعات</td><td>—</td></tr>
+            <tr><td><b>رصيد = مجمل الربح</b></td><td>—</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h4 class="sub">ب) حـ/ الأرباح والخسائر — يُنتج «صافي الربح»</h4>
+      <div class="tw">
+        <table>
+          <thead><tr><th>مدين (مصروفات)</th><th>دائن (إيرادات)</th></tr></thead>
+          <tbody>
+            <tr><td>المرتبات والأجور</td><td>مجمل الربح (من المتاجرة)</td></tr>
+            <tr><td>مصروفات الصيانة</td><td>إيرادات أوراق مالية</td></tr>
+            <tr><td>أدوات كتابية</td><td>خصم مكتسب</td></tr>
+            <tr><td>خصم مسموح به</td><td>عمولات دائنة (محصلة)</td></tr>
+            <tr><td>مصروفات دعاية</td><td>إيجارات دائنة (محصلة)</td></tr>
+            <tr><td>مصروفات نقل المبيعات</td><td>ديون معدومة محصلة</td></tr>
+            <tr><td>ديون معدومة</td><td>—</td></tr>
+            <tr><td>مصروف إهلاك الأصل</td><td>—</td></tr>
+            <tr><td>مصروفات الكهرباء · مصروف إيجار</td><td>—</td></tr>
+            <tr><td>رصيد = صافي الخسارة</td><td><b>رصيد = صافي الربح</b></td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3 class="sec">3) شكل قائمة الدخل المستحدَث (التحليلي)</h3>
+      <div class="flow">
+        <div class="step on"><b>الخطوة 1</b>المبيعات − مردودات المبيعات<br><small>= صافي المبيعات</small></div>
+        <span class="arw">◀</span>
+        <div class="step on2"><b>الخطوة 2</b>صافي المبيعات − تكلفة المبيعات<br><small>= مجمل الربح</small></div>
+        <span class="arw">◀</span>
+        <div class="step on3"><b>الخطوة 3</b>+ إيرادات أخرى − مصروفات<br><small>= صافي أرباح النشاط</small></div>
+        <span class="arw">◀</span>
+        <div class="step on4"><b>الخطوة 4</b>± بنود غير عادية<br><small>= الربح قبل الضرائب</small></div>
+        <span class="arw">◀</span>
+        <div class="step on5"><b>الخطوة 5</b>− ضريبة الدخل<br><small>= <b>صافي الربح بعد الضريبة</b></small></div>
+      </div>
+      <div class="tw">
+        <table>
+          <thead><tr><th>تكوين تكلفة المبيعات</th><th>الحساب</th></tr></thead>
+          <tbody>
+            <tr><td>مخزون (بضاعة) أول المدة</td><td>+</td></tr>
+            <tr><td>المشتريات</td><td>+</td></tr>
+            <tr><td>مصروفات نقل المشتريات</td><td>+</td></tr>
+            <tr><td>مردودات المشتريات</td><td>−</td></tr>
+            <tr><td><b>= تكلفة البضاعة المتاحة للبيع</b></td><td></td></tr>
+            <tr><td>مخزون (بضاعة) آخر المدة</td><td>−</td></tr>
+            <tr><td><b>= تكلفة المبيعات</b></td><td></td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="mnem"><div class="t">حِيلة الحفظ</div><div class="w">«أول + مشتريات + نقل − مردودات = متاح للبيع»<br>«متاح − آخر = تكلفة المبيعات»</div></div>
+
+      <h4 class="sub">تصنيف المصروفات في الشكل المستحدث</h4>
+      <div class="cards">
+        <div class="card t2"><h5>مصروفات بيعية</h5><p>رواتب البيع · عمولات البيع · إهلاك المعدات · مرافق وتأمين (بنسبة)</p></div>
+        <div class="card t3"><h5>مصروفات إدارية</h5><p>رواتب المكتب · إهلاك المباني · ضرائب عقارية · مرافق وتأمين (بنسبة)</p></div>
+        <div class="card t4"><h5>مصروفات تمويلية</h5><p>مصروف الفوائد — تُخصم بعد «صافي أرباح النشاط»</p></div>
+        <div class="card t5"><h5>بنود غير عادية / رأسمالية</h5><p>إيرادات غير عادية · أرباح (خسائر) رأسمالية · فروق عملة</p></div>
+      </div>
+
+      <h3 class="sec">4) قائمة المركز المالي (الميزانية العمومية)</h3>
+      <div class="note"><span class="lbl">تعريف</span>كشف مرتّب يُوضِّح <b>ممتلكات الشركة</b> و<b>الالتزامات المستحقة عليها</b> في تاريخ معيّن — أو: بيان <b>بمصادر تمويل</b> أصول وممتلكات الشركة.</div>
+      <h4 class="sub">أ) الشكل التقليدي (له طرفان)</h4>
+      <div class="tw">
+        <table>
+          <thead><tr><th>جانب الأصول</th><th>جانب الخصوم وحقوق الملكية</th></tr></thead>
+          <tbody>
+            <tr><td><b>الأصول الثابتة:</b> أراضي · مباني (عقارات) · آلات ومعدات · سيارات · استثمارات طويلة الأجل</td><td><b>حقوق الملكية:</b> رأس المال + أرباح العام (أو − الخسائر) − المسحوبات الشخصية</td></tr>
+            <tr><td><b>الأصول المتداولة:</b> بضاعة آخر المدة · المدينون · أوراق القبض · أوراق مالية · نقدية</td><td><b>التزامات طويلة الأجل:</b> قرض طويل الأجل</td></tr>
+            <tr><td><b>الأصول المعنوية:</b> شهرة المحل · براءة اختراع</td><td><b>التزامات قصيرة الأجل:</b> الدائنون · أوراق الدفع · قرض قصير الأجل · بنك</td></tr>
+            <tr><td>أرصدة مدينة أخرى</td><td>أرصدة دائنة أخرى</td></tr>
+            <tr><td><b>الإجمالي ×××</b></td><td><b>الإجمالي ×××</b></td></tr>
+          </tbody>
+        </table>
+      </div>
+      <h4 class="sub">ب) الشكل المستحدث (قائمة رأسية)</h4>
+      <div class="flow">
+        <div class="step on"><b>1</b>الأصول الثابتة</div>
+        <span class="arw">◀</span>
+        <div class="step on2"><b>2</b>الأصول المتداولة</div>
+        <span class="arw">◀</span>
+        <div class="step on3"><b>3</b>الأصول المعنوية</div>
+        <span class="arw">◀</span>
+        <div class="step on5"><b>الإجمالي</b>الأصول = حقوق الملكية + الالتزامات</div>
+      </div>
+      <div class="je">
+        <div class="ttl">ترتيب حقوق الملكية في الشكل المستحدث</div>
+        <div class="r d"><span>رأس المال</span></div>
+        <div class="r c"><span>+ أرباح محتجزة</span></div>
+        <div class="r c"><span>+ صافي أرباح العام</span></div>
+        <div class="r d"><span>المجموع ← − المسحوبات ← = صافي حقوق الملكية</span></div>
+      </div>
+
+      <h3 class="sec">5) الفرق بين المصروفات والإيرادات والأصول والالتزامات</h3>
+      <div class="tw">
+        <table>
+          <thead><tr><th>البنود</th><th>المعنى الدقيق</th><th>تُوضَع في</th></tr></thead>
+          <tbody>
+            <tr><td><b>المصروفات</b></td><td>مبالغ تدفعها المنشأة ويُستفاد منها بشكل متكرر لتسيير أعمالها خلال سنة — <b>أموال دُفعت للحصول على خدمة ولن تُسترد</b></td><td>قائمة الدخل</td></tr>
+            <tr><td><b>الإيرادات</b></td><td>المبالغ التي تحصل عليها المنشأة نتيجة بيع البضاعة أو الخدمة — <b>لن تُرد لأصحابها</b></td><td>قائمة الدخل</td></tr>
+            <tr><td><b>الأصول</b></td><td>ممتلكات الشركة: ثابتة · متداولة · غير ملموسة (شهرة المحل، العلامات التجارية، براءات الاختراع)</td><td>المركز المالي</td></tr>
+            <tr><td><b>حقوق الملكية</b></td><td>التزامات الشركة <b>لصاحب الشركة</b>: رأس المال + الأرباح − المسحوبات</td><td>المركز المالي</td></tr>
+            <tr><td><b>الالتزامات</b></td><td>التزامات الشركة <b>للغير</b> — أموال مستحقة ولم تُدفع بعد، قصيرة أو طويلة الأجل</td><td>المركز المالي</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="mnem"><div class="t">حِيلة الحفظ — أين يذهب كل حساب؟</div><div class="w">مصروف + إيراد ← قائمة الدخل<br>أصل + التزام + حقوق ملكية ← قائمة المركز المالي</div><p>تذكّر دائمًا: <b>المتعامل هو الشركة وليس صاحبها</b>.</p></div>
+    </div>
+  </section>
+</div>
+</div>
+
+<!-- ================= CH3 ================= -->
+<div class="view" id="ch3">
+<div class="wrap">
+  <div class="pagehead"><h1>معادلة الميزانية</h1><p>قلب المحاسبة — لا تبدأ غيرها قبل إتقانها.</p></div>
+  <section class="ch">
+    <div class="ch-head c-amber"><div class="badge">3</div><div><h2>معادلة الميزانية</h2><small>الأصول = الخصوم + حقوق الملكية</small></div></div>
+    <div class="ch-body">
+      <h3 class="sec">1) عناصر المعادلة الثلاثة</h3>
+      <div class="cards">
+        <div class="card t5"><h5>الأصول</h5><p>ما تمتلكه المنشأة من موارد اقتصادية (أراضي، مباني، آلات، أثاث، بضاعة، مدينون، أوراق قبض، نقدية).</p></div>
+        <div class="card t4"><h5>الخصوم (الالتزامات)</h5><p>ديون والتزامات المنشأة للغير — مصادر الأموال الخارجية لتمويل أصولها.</p></div>
+        <div class="card t3"><h5>حقوق الملكية (الملاك)</h5><p>ما تبقّى من أصول المنشأة بعد استبعاد خصومها = صافي الأصول.</p></div>
+      </div>
+      <div class="formula">الأصول <span class="hl">=</span> الخصوم <span class="hl">+</span> رأس المال (حقوق الملكية)<small>يجب أن يتساوى جانبي الميزانية — بسبب قاعدة القيد المزدوج</small></div>
+      <h4 class="sub">الصور الحسابية الأربع للمعادلة</h4>
+      <div class="cards">
+        <div class="card"><h5>الصورة 1</h5><p>الأصول = الخصوم + رأس المال</p></div>
+        <div class="card t2"><h5>الصورة 2</h5><p>الأصول − الخصوم = رأس المال</p></div>
+        <div class="card t3"><h5>الصورة 3</h5><p>الأصول − الخصوم = صافي قيمة الأصول</p></div>
+        <div class="card t4"><h5>الصورة 4</h5><p>صافي قيمة الأصول = رأس المال</p></div>
+      </div>
+
+      <h3 class="sec">2) القيد المزدوج — Double Entry</h3>
+      <div class="note"><span class="lbl">تعريف</span>تسجيل أي عملية مالية بالدفاتر على أساس وجود <b>طرفين</b> للعملية: أحدهما <b>مدين</b> والآخر <b>دائن</b>، <b>متساويين في القيمة</b>.</div>
+
+      <h3 class="sec">3) أنواع الأصول بالتفصيل</h3>
+      <div class="cards">
+        <div class="card t5"><h5>أ) الأصول الثابتة — Fixed Assets</h5><p>أصول <b>ملموسة</b> تُقتنى للاستخدام في مزاولة النشاط <b>وليس لإعادة بيعها</b>، ويُتوقَّع استخدامها أكثر من فترة محاسبية واحدة. (أراضي، مباني، آلات، سيارات)</p></div>
+        <div class="card t2"><h5>ب) الأصول المتداولة — Current Assets</h5><p>تشمل النقدية بالخزينة أو البنك، والأصول التي يُنتظر تحويلها إلى نقدية خلال السنة المالية أو دورة التشغيل أيهما أطول (المخزون، المدينون، أوراق القبض).</p></div>
+        <div class="card t3"><h5>ج) الأصول غير الملموسة — Intangible</h5><p>موارد اقتصادية مملوكة يُتوقَّع الاستفادة منها مستقبلًا لكنها <b>تفتقر للكيان المادي</b>: حق الاختراع، العلامة التجارية، شهرة المحل، حقوق التأليف والنشر.</p></div>
+        <div class="card t4"><h5>د) الأرصدة المدينة الأخرى</h5><p>المدفوعات المقدَّمة للحصول على خدمات مستقبلًا (<b>المصروفات المقدمة</b>: إيجار مقدم، تأمين مقدم)، والحقوق المستحقة عن خدمات قدّمتها في الماضي (<b>الإيرادات المستحقة</b>).</p></div>
+      </div>
+
+      <h3 class="sec">4) الالتزامات</h3>
+      <div class="cards">
+        <div class="card t4"><h5>أ) الالتزامات المتداولة</h5><p>يحلّ ميعاد استحقاقها في الأجل القصير — واجبة السداد خلال السنة المالية الجارية أو دورة التشغيل أيهما أطول: الدائنون، أوراق الدفع، القروض قصيرة الأجل.</p></div>
+        <div class="card t7"><h5>ب) الالتزامات طويلة الأجل</h5><p>ديون يستحق سدادها خلال فترة تزيد عن سنة مالية (القروض طويلة الأجل).</p></div>
+      </div>
+
+      <h3 class="sec">5) حقوق الملكية — كيف تزيد وكيف تنقص</h3>
+      <div class="tw">
+        <table>
+          <thead><tr><th>تزيد حقوق الملكية (+)</th><th>تنقص حقوق الملكية (−)</th></tr></thead>
+          <tbody>
+            <tr><td>استثمارات المالك (رأس المال المضاف)</td><td>مسحوبات المالك (الشخصية)</td></tr>
+            <tr><td>الإيرادات الناتجة عن بيع البضاعة أو تأدية الخدمات</td><td>المصروفات التي تتحمّلها المنشأة لتحقيق الإيرادات</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p style="font-size:14px;color:var(--muted)">في المنشآت الفردية: الموارد المستثمرة بواسطة المالك (رأس المال) <b>+</b> الأرباح أو <b>−</b> الخسائر والمسحوبات.</p>
+
+      <h3 class="sec">6) مثال تطبيقي محلول — محلات سعيد</h3>
+      <div class="tw">
+        <table>
+          <thead><tr><th>التاريخ</th><th>العملية</th><th>تحليل المعادلة</th></tr></thead>
+          <tbody>
+            <tr><td>1/1</td><td>بدء النشاط برأس مال 100,000 نقدًا</td><td>أصول (نقدية) 100,000 = رأس المال 100,000</td></tr>
+            <tr><td>1/5</td><td>شراء سيارة 30,000 ومحل 50,000 نقدًا</td><td>سيارة 30,000 + عقار 50,000 + نقدية 20,000 = 100,000</td></tr>
+            <tr><td>1/10</td><td>شراء بضاعة 10,000 نقدًا</td><td>سيارة + عقار + بضاعة 10,000 + نقدية 10,000 = 100,000</td></tr>
+            <tr><td>1/14</td><td>شراء بضاعة 15,000 من أسعد ودفع ثلث القيمة (5,000)</td><td>الأصول 110,000 = رأس المال 100,000 + دائنون 10,000</td></tr>
+            <tr><td>1/20</td><td>بيع بضاعة 20,000 لمسعود وحصّل نصف القيمة نقدًا</td><td>أصول 110,000 (منها مدينون 10,000) = 100,000 + 10,000</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="note tip"><span class="lbl">القاعدة الذهبية للتطبيق</span>(1) ما الحسابات المتأثرة؟ (2) هل زادت أم نقصت؟ (3) هل الجانبان متساويان؟</div>
+      <div class="mnem"><div class="t">حِيلة الحفظ — 4 حالات لا تُخلّ بالتوازن</div><div class="w">زيادة أصل + نقص أصل آخر &nbsp;|&nbsp; زيادة أصل + زيادة التزام<br>نقص أصل + نقص التزام &nbsp;|&nbsp; نقص التزام + زيادة التزام آخر</div><p>وفي كل الحالات: <b>الجانبان متساويان دائمًا</b>.</p></div>
+    </div>
+  </section>
+</div>
+</div>
+
+<!-- ================= CH4 ================= -->
+<div class="view" id="ch4">
+<div class="wrap">
+  <div class="pagehead"><h1>الدورة المحاسبية وتحليل العمليات المالية</h1><p>دفتر اليومية → دفتر الأستاذ → ميزان المراجعة → القوائم المالية.</p></div>
+  <section class="ch">
+    <div class="ch-head c-rose"><div class="badge">4</div><div><h2>الدورة المحاسبية وتحليل العمليات المالية</h2><small>اليومية · الأستاذ · ميزان المراجعة</small></div></div>
+    <div class="ch-body">
+      <h3 class="sec">1) تعريف الدورة المحاسبية</h3>
+      <div class="note"><span class="lbl">تعريف</span>مجموعة الخطوات <b>المتتابعة</b> التي يقوم بتنفيذها المحاسب <b>فور حدوث العمليات المالية</b>، حتى إتمام العملية المحاسبية بمراحلها المختلفة.</div>
+
+      <h3 class="sec">2) الخطوات الثمانية للدورة المحاسبية — الأهم في الفصل</h3>
+      <div class="flow">
+        <div class="step on"><b>1</b>تحليل العمليات من واقع المستندات</div>
+        <span class="arw">◀</span>
+        <div class="step on"><b>2</b>تسجيل العمليات في دفتر اليومية</div>
+        <span class="arw">◀</span>
+        <div class="step on2"><b>3</b>الترحيل إلى دفتر الأستاذ</div>
+        <span class="arw">◀</span>
+        <div class="step on3"><b>4</b>إعداد ميزان المراجعة</div>
+      </div>
+      <div class="flow">
+        <div class="step on4"><b>5</b>إجراء التسويات الجردية</div>
+        <span class="arw">◀</span>
+        <div class="step on4"><b>6</b>ميزان المراجعة بعد التسويات</div>
+        <span class="arw">◀</span>
+        <div class="step on5"><b>7</b>إعداد القوائم المالية</div>
+        <span class="arw">◀</span>
+        <div class="step on5"><b>8</b>إقفال الحسابات وتدويرها</div>
+      </div>
+      <div class="note tip"><span class="lbl">ملاحظة</span>تُسلَّم الخُطوات الأربعة الأولى كافية لتقديم «صورة» عن الموقف المحاسبي.</div>
+
+      <h3 class="sec">3) تحليل العمليات المالية — 3 خطوات</h3>
+      <div class="cards">
+        <div class="card"><h5>1</h5><p>تسجيل المعاملات المالية من واقع <b>مستندات</b> الشركة في دفتر اليومية — Journal</p></div>
+        <div class="card t2"><h5>2</h5><p>ترحيل المعاملات من دفتر اليومية إلى <b>حسابات دفتر الأستاذ</b> — Ledger، ثم <b>ترصيد</b> هذه الحسابات</p></div>
+        <div class="card t3"><h5>3</h5><p>إعداد <b>ميزان المراجعة</b> — Trial Balance بالأرصدة المستخرجة من دفتر الأستاذ</p></div>
+      </div>
+
+      <h3 class="sec">4) دفتر اليومية — Journal</h3>
+      <div class="je">
+        <div class="ttl">شكل دفتر اليومية</div>
+        <div class="r"><span>التاريخ</span><span>البيان</span><span>مدين</span><span>دائن</span></div>
+        <div class="r d"><span>&nbsp;</span><span>من حـ/ «يُوضَع أمام الطرف المدين»</span><span class="v">××</span><span></span></div>
+        <div class="r c"><span>&nbsp;</span><span>إلى حـ/ «يُوضَع أمام الطرف الدائن»</span><span></span><span class="v">××</span></div>
+      </div>
+      <h4 class="sub">أنماط قيود اليومية</h4>
+      <div class="cards">
+        <div class="card t2"><h5>القيد البسيط</h5><p>كل طرف من أطرافه <b>حساب واحد</b> فقط.</p></div>
+        <div class="card t4"><h5>القيد المركّب</h5><p>يوجد في أحد طرفيه <b>أو كليهما</b> أكثر من حساب.</p></div>
+      </div>
+
+      <h3 class="sec">5) قواعد المدينية والدائنية — 5 قواعد لا تُنسى</h3>
+      <div class="tw">
+        <table>
+          <thead><tr><th>#</th><th>القاعدة</th></tr></thead>
+          <tbody>
+            <tr><td>1</td><td>كل عناصر <b>المصروفات</b> في ح/ المتاجرة والأرباح والخسائر، وكل عناصر <b>الأصول</b> في الميزانية ← أصل قيدها ورصيدها النهائي <b>مدين</b></td></tr>
+            <tr><td>2</td><td>كل عناصر <b>الإيرادات</b> في ح/ المتاجرة والأرباح والخسائر، وكل عناصر <b>الخصوم ورأس المال</b> ← أصل قيدها ورصيدها النهائي <b>دائن</b></td></tr>
+            <tr><td>3</td><td>عند <b>زيادة</b> الحسابات المدينة ← تُجعَل <b>مدينة</b> أيضًا</td></tr>
+            <tr><td>4</td><td>عند <b>زيادة</b> الحسابات الدائنة ← تُجعَل <b>دائنة</b> أيضًا</td></tr>
+            <tr><td>5</td><td>عند <b>تخفيض</b> الحسابات المدينة أو الدائنة ← يتم <b>عكس</b> أصل الحساب</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <h4 class="sub">جدول تلخيصي — طبيعة الحسابات</h4>
+      <div class="tw">
+        <table>
+          <thead><tr><th>نوع الحساب</th><th>الأصل</th><th>إذا زاد (+)</th><th>إذا انخفض (−)</th></tr></thead>
+          <tbody>
+            <tr><td><b>الأصول</b></td><td>مدين</td><td>مدين</td><td>دائن</td></tr>
+            <tr><td><b>الخصوم</b></td><td>دائن</td><td>دائن</td><td>مدين</td></tr>
+            <tr><td><b>حقوق الملكية</b> (رأس المال)</td><td>دائن</td><td>دائن</td><td>مدين</td></tr>
+            <tr><td><b>الإيرادات</b></td><td>دائن</td><td>دائن</td><td>مدين</td></tr>
+            <tr><td><b>المصروفات</b></td><td>مدين</td><td>مدين</td><td>دائن</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="mnem"><div class="t">حِيلة الحفظ — الثنائي المعروف</div><div class="w">الأصول والمصروفات ← مدينة<br>الخصوم وحقوق الملكية والإيرادات ← دائنة</div><p><b>الأصول (مدين) = الخصوم + حقوق الملكية (دائن)</b></p></div>
+
+      <h3 class="sec">6) دفتر الأستاذ والترحيل — Posting</h3>
+      <div class="note"><span class="lbl">تعريف الترحيل</span>إعادة تسجيل للعمليات السابق إثباتها بدفتر اليومية، لكن على أساس <b>نوع العملية وليس وفقًا لتاريخ حدوثها</b> — بتخصيص صفحة/أكثر لكل نوع من الأحداث الاقتصادية يُسمَّى «حساب».</div>
+      <h4 class="sub">خطوات الترحيل إلى دفتر الأستاذ (3)</h4>
+      <div class="flow">
+        <div class="step on"><b>1</b>حدّد مسمّى وطبيعة الحساب (مدين أم دائن) المراد ترحيله من قيود اليومية</div>
+        <span class="arw">◀</span>
+        <div class="step on2"><b>2</b>سجّل بالجانب المناظر لطبيعته: المبلغ في خانة المبلغ، والطرف الآخر في خانة البيان، ثم التاريخ</div>
+        <span class="arw">◀</span>
+        <div class="step on3"><b>3</b>الترصيد: تلخيص نتيجة حركة الحساب خلال الفترة في رقم واحد يُسمَّى «الرصيد»</div>
+      </div>
+      <h4 class="sub">الرصيد — 3 حالات</h4>
+      <div class="cards">
+        <div class="card t2"><h5>رصيد مدين</h5><p>مجموع الجانب المدين <b>أكبر</b> من مجموع الجانب الدائن</p></div>
+        <div class="card t4"><h5>رصيد دائن</h5><p>مجموع الجانب الدائن <b>أكبر</b> من مجموع الجانب المدين</p></div>
+        <div class="card t3"><h5>لا يوجد رصيد (صفر)</h5><p>مجموع الجانب المدين <b>مساويًا</b> لمجموع الجانب الدائن</p></div>
+      </div>
+
+      <h3 class="sec">7) ميزان المراجعة — Trial Balance</h3>
+      <div class="note"><span class="lbl">تعريف</span>كشف يُعدّ <b>خارج الدفاتر المحاسبية</b> بغرض <b>التحقق من صحة</b> تسجيل القيود وترحيلها إلى حسابات الأستاذ وترصيدها.</div>
+      <h4 class="sub">أنواع ميزان المراجعة (3)</h4>
+      <div class="cards">
+        <div class="card"><h5>1. بالمجاميع</h5><p>أسماء الحسابات + مجموع مدين + مجموع دائن</p></div>
+        <div class="card t2"><h5>2. بالأرصدة</h5><p>أسماء الحسابات + رصيد مدين + رصيد دائن</p></div>
+        <div class="card t3"><h5>3. بالمجاميع والأرصدة</h5><p>أربعة أعمدة: مجاميع (مدين/دائن) + أرصدة (مدين/دائن)</p></div>
+      </div>
+      <div class="note tip"><span class="lbl">قاعدة ذهبية</span>التوازن التلقائي للحسابات يؤدي إلى توازن جانبي الميزانية — أي أن أثر القيد المزدوج يمتد حتى إعداد الميزانية العامة.</div>
+    </div>
+  </section>
+</div>
+</div>
+
+<!-- ================= CH5 ================= -->
+<div class="view" id="ch5">
+<div class="wrap">
+  <div class="pagehead"><h1>العمليات التجارية للمشروع</h1><p>الشيكات · الخصومات · المردودات والمسموحات.</p></div>
+  <section class="ch">
+    <div class="ch-head c-emerald"><div class="badge">5</div><div><h2>العمليات التجارية للمشروع</h2><small>الشيكات · الخصومات · المردودات</small></div></div>
+    <div class="ch-body">
+      <h3 class="sec">1) قيد التحصيل النقدي</h3>
+      <div class="je">
+        <div class="ttl">الطرف المدين: من حـ/ الخزينة</div>
+        <div class="r d"><span>من حـ/ الخزينة</span><span class="v">××</span></div>
+        <div class="r c"><span>حـ/ رأس المال (استثمار)</span><span class="v">××</span></div>
+        <div class="r c"><span>حـ/ المبيعات (بيع نقدي)</span><span class="v">××</span></div>
+        <div class="r c"><span>حـ/ المدينين (تحصيل ديون على الغير)</span><span class="v">××</span></div>
+        <div class="r c"><span>حـ/ أوراق القبض (تحصيل أوراق قبض)</span><span class="v">××</span></div>
+        <div class="r c"><span>حـ/ أصول ثابتة (بيع أصل)</span><span class="v">××</span></div>
+        <div class="r c"><span>حـ/ البنك (تحويل نقدي)</span><span class="v">××</span></div>
+        <div class="r c"><span>حـ/ القرض</span><span class="v">××</span></div>
+        <div class="r c"><span>حـ/ إيرادات أخرى</span><span class="v">××</span></div>
+      </div>
+
+      <h3 class="sec">2) قيد السداد النقدي</h3>
+      <div class="je">
+        <div class="ttl">الطرف الدائن: إلى حـ/ الخزينة</div>
+        <div class="r d"><span>حـ/ رأس المال (تخفيض)</span></div>
+        <div class="r d"><span>حـ/ المشتريات (شراء نقدي)</span></div>
+        <div class="r d"><span>حـ/ الدائنين (دفع ديون للغير)</span></div>
+        <div class="r d"><span>حـ/ أوراق الدفع (دفع أوراق دفع)</span></div>
+        <div class="r d"><span>حـ/ أصول ثابتة (شراء أصل)</span></div>
+        <div class="r d"><span>حـ/ البنك (تحويل نقدي)</span></div>
+        <div class="r d"><span>حـ/ القرض (سداد قرض)</span></div>
+        <div class="r d"><span>حـ/ مسحوبات شخصية</span></div>
+        <div class="r d"><span>حـ/ مصروفات أخرى</span></div>
+        <div class="r c"><span>إلى حـ/ الخزينة</span><span class="v">××</span></div>
+      </div>
+
+      <h3 class="sec">3) الشيك — Cheque</h3>
+      <div class="note"><span class="lbl">تعريف</span>أمر <b>كتابي غير معلّق على شرط</b> من شخص له حساب جارٍ في بنك معيّن، يطلب فيه من البنك أن يدفع — بمجرد الاطلاع — مبلغًا محددًا لشخص معيّن أو لأمره أو لحامله.</div>
+      <div class="cards">
+        <div class="card t2"><h5>أركان الشيك (5)</h5><ul><li>تاريخ تحرير الشيك</li><li>اسم المستفيد (قد يكون لحامله)</li><li>اسم البنك (مطبوع على الشيك)</li><li>المبلغ بالأرقام والحروف</li><li>توقيع الساحب (صاحب الحساب)</li></ul></div>
+        <div class="card t4"><h5>الأطراف الثلاثة (3)</h5><ul><li><b>الساحب:</b> صاحب الحساب الجاري (محرر الشيك)</li><li><b>المسحوب عليه:</b> البنك المودَع فيه أموال الساحب</li><li><b>المستفيد:</b> من يحق له صرف القيمة أو تظهيره لمن يريد</li></ul></div>
+      </div>
+      <h4 class="sub">أ) التصرفات البنكية</h4>
+      <div class="tw">
+        <table>
+          <thead><tr><th>العملية</th><th>القيد</th></tr></thead>
+          <tbody>
+            <tr><td>سحب من الخزينة وإيداع في البنك</td><td>من حـ/ البنك — إلى حـ/ الخزينة</td></tr>
+            <tr><td>سحب من البنك وإيداع الخزينة</td><td>من حـ/ الخزينة — إلى حـ/ البنك</td></tr>
+            <tr><td>فوائد وعمولات بنكية — مصروف</td><td>من حـ/ مصروفات وعمولات بنكية — إلى حـ/ البنك</td></tr>
+            <tr><td>فوائد وعمولات بنكية — إيراد</td><td>من حـ/ البنك — إلى حـ/ إيرادات وعمولات بنكية</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h4 class="sub">ب) الشيكات الواردة من الغير — طريقتان للمعالجة</h4>
+      <div class="cards">
+        <div class="card"><h5>الطريقة 1: اعتبار الشيك محصّلًا فورًا</h5>
+          <div class="je" style="margin-top:8px">
+            <div class="r"><span style="font-size:13px">عند الاستلام:</span></div>
+            <div class="r d"><span>من حـ/ البنك</span><span class="v">××</span></div>
+            <div class="r c"><span>إلى حـ/ مبيعات (أو مدينين)</span><span class="v">××</span></div>
+            <div class="r"><span style="font-size:13px">عند الرفض:</span></div>
+            <div class="r d"><span>من حـ/ مدينين</span><span class="v">××</span></div>
+            <div class="r c"><span>إلى حـ/ البنك</span><span class="v">××</span></div>
+          </div>
+        </div>
+        <div class="card t4"><h5>الطريقة 2: شيكات تحت التحصيل (برسم التحصيل)</h5>
+          <div class="je" style="margin-top:8px">
+            <div class="r"><span style="font-size:13px">عند الاستلام:</span></div>
+            <div class="r d"><span>من حـ/ شيكات تحت التحصيل</span><span class="v">××</span></div>
+            <div class="r c"><span>إلى حـ/ المدينين</span><span class="v">××</span></div>
+            <div class="r"><span style="font-size:13px">عند إشعار البنك بالتحصيل:</span></div>
+            <div class="r d"><span>من حـ/ البنك</span><span class="v">××</span></div>
+            <div class="r c"><span>إلى حـ/ شيكات تحت التحصيل</span><span class="v">××</span></div>
+            <div class="r"><span style="font-size:13px">عند رفض الشيك:</span></div>
+            <div class="r d"><span>من حـ/ المدينين</span><span class="v">××</span></div>
+            <div class="r c"><span>إلى حـ/ شيكات تحت التحصيل</span><span class="v">××</span></div>
+          </div>
+        </div>
+      </div>
+
+      <h4 class="sub">ج) الشيكات الصادرة (المسحوبة من المنشأة)</h4>
+      <div class="je">
+        <div class="ttl">مثال: شراء بضاعة من شركة النصر 10,000 في 1/10، وسدادها بشيك في 5/10، ورفض البنك للشيك في 6/10</div>
+        <div class="r d"><span>من حـ/ المشتريات</span><span class="v">10,000</span></div>
+        <div class="r c"><span>إلى حـ/ شركة النصر (دائنين)</span><span class="v">10,000</span></div>
+        <div class="r" style="color:#a8818e;font-size:12.5px"><span>1/10 — إثبات شراء بضاعة بالأجل</span></div>
+        <div class="r d"><span>من حـ/ شركة النصر (دائنين)</span><span class="v">10,000</span></div>
+        <div class="r c"><span>إلى حـ/ البنك</span><span class="v">10,000</span></div>
+        <div class="r" style="color:#a8818e;font-size:12.5px"><span>5/10 — إثبات السداد بشيك على البنك</span></div>
+        <div class="r d"><span>من حـ/ البنك</span><span class="v">10,000</span></div>
+        <div class="r c"><span>إلى حـ/ شركة النصر (دائنين)</span><span class="v">10,000</span></div>
+        <div class="r" style="color:#a8818e;font-size:12.5px"><span>6/10 — إثبات رفض البنك للشيك (عكس القيد)</span></div>
+      </div>
+
+      <h3 class="sec">4) الخصم على البضاعة — مهم جدًا</h3>
+      <div class="tw">
+        <table>
+          <thead><tr><th>وجه المقارنة</th><th>الخصم التجاري</th><th>الخصم النقدي</th></tr></thead>
+          <tbody>
+            <tr><td><b>أساسه</b></td><td>يُحسب على إجمالي قيمة الفاتورة</td><td>يعتمد على شروط البيع الآجل ويخضع لشرطية منح الائتمان</td></tr>
+            <tr><td><b>متى يُحسب؟</b></td><td>وقت البيع مباشرة</td><td>عند سداد المستحق خلال فترة الائتمان الممنوحة</td></tr>
+            <tr><td><b>الإثبات بالدفاتر</b></td><td><b>لا يتم إثبات مقابله في الدفاتر المحاسبية</b></td><td><b>يتم إثبات مقابله في الدفاتر المحاسبية</b></td></tr>
+            <tr><td><b>القيمة المسجَّلة</b></td><td>بصافي الفاتورة</td><td>يُفتح له حساب مستقل</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <h4 class="sub">الخصم النقدي ينقسم إلى</h4>
+      <div class="cards">
+        <div class="card t5"><h5>خصم مكتسب (إيراد) — للمشتري</h5><p>يُتاح للعميل عندما يسدّد مستحقاته خلال فترة الخصم. مثال شائع: شرط «2/10، صافي 30 يومًا» — فترة الائتمان 30 يومًا، وإن سدّد خلال 10 أيام يحصل على خصم 2%.</p>
+          <div class="je" style="margin-top:8px">
+            <div class="r d"><span>من حـ/ الدائنين</span><span class="v">××</span></div>
+            <div class="r c"><span>حـ/ الخصم المكتسب (إيراد)</span><span class="v">××</span></div>
+            <div class="r c"><span>حـ/ الخزينة (البنك)</span><span class="v">××</span></div>
+          </div>
+        </div>
+        <div class="card t4"><h5>خصم مسموح به (مصروف) — للبائع</h5><p>يُمنَح للعميل لتشجيعه على السداد خلال فترة الخصم. إن لم يسدّد خلال المدة، لا يُثبَت الخصم.</p>
+          <div class="je" style="margin-top:8px">
+            <div class="r d"><span>من حـ/ الخصم المسموح به (مصروف)</span><span class="v">××</span></div>
+            <div class="r d"><span>من حـ/ الخزينة (البنك)</span><span class="v">××</span></div>
+            <div class="r c"><span>إلى حـ/ المدينين</span><span class="v">××</span></div>
+          </div>
+        </div>
+      </div>
+      <div class="mnem"><div class="t">حِيلة الحفظ — شرط البيع «2/10 صافي 30»</div><div class="w">اقرأها: «٢٪ خصم لو دفعت في ١٠ أيام، والأصل ٣٠ يومًا»</div><p><b>سدّد خلال المدة</b> ← يُثبَت الخصم. <b>ما سدّدش</b> ← يُلغى الخصم ويُدفع المبلغ كاملًا.</p></div>
+
+      <h3 class="sec">5) المردودات والمسموحات</h3>
+      <div class="cards">
+        <div class="card t2"><h5>مردودات ومسموحات المشتريات</h5><p><b>المردود:</b> رد البضاعة للبائع بسبب عيوب أو عدم مطابقة المواصفات. <b>المسموح:</b> يتفق الطرفان على تخفيض القيمة دون ردّ البضاعة. الحساب يُجعَل <b>دائنًا</b>.</p>
+          <div class="je" style="margin-top:8px">
+            <div class="r d"><span>من حـ/ الخزينة (أو الدائنين)</span><span class="v">××</span></div>
+            <div class="r c"><span>إلى حـ/ مردودات المشتريات</span><span class="v">××</span></div>
+          </div>
+        </div>
+        <div class="card t4"><h5>مردودات ومسموحات المبيعات</h5><p>البضاعة المباعة تُرَدّ للبائع (مردودات مبيعات)، أو يتنازل البائع عن مبلغ معيّن دون ردّ البضاعة (مسموحات مبيعات). الحساب يُجعَل <b>مدينًا</b>.</p>
+          <div class="je" style="margin-top:8px">
+            <div class="r d"><span>من حـ/ مردودات المبيعات</span><span class="v">××</span></div>
+            <div class="r c"><span>إلى حـ/ الخزينة (أو المدينين)</span><span class="v">××</span></div>
+          </div>
+        </div>
+      </div>
+      <div class="note warn"><span class="lbl">ملاحظة هامة</span>عند تسجيل مردودات المبيعات/المشتريات، وكان قد سبق حساب الفاتورة <b>بالصافي</b> (أي بعد الخصم التجاري)، فيجب مراعاة حساب <b>نفس نسبة الخصم التجاري</b> على قيمة المردودات، وبالتالي تسجيلها بالصافي.</div>
+
+      <h3 class="sec">6) قيود الشراء والبيع (القالب العام)</h3>
+      <div class="je">
+        <div class="ttl">إثبات عملية الشراء</div>
+        <div class="r d"><span>من حـ/ المشتريات</span><span class="v">××</span></div>
+        <div class="r c"><span>إلى حـ/ الخزينة / البنك / الدائنين / أوراق الدفع</span><span class="v">××</span></div>
+        <div class="ttl" style="margin-top:10px">إثبات عملية البيع</div>
+        <div class="r d"><span>من حـ/ الخزينة / البنك / المدينين / أوراق القبض</span><span class="v">××</span></div>
+        <div class="r c"><span>إلى حـ/ المبيعات</span><span class="v">××</span></div>
+      </div>
+    </div>
+  </section>
+</div>
+</div>
+
+<!-- ================= CH6 ================= -->
+<div class="view" id="ch6">
+<div class="wrap">
+  <div class="pagehead"><h1>الأوراق التجارية — الكمبيالات</h1><p>السند الإذني · 7 احتمالات للتصرف · المعالجة المحاسبية الكاملة.</p></div>
+  <section class="ch">
+    <div class="ch-head c-fuchsia"><div class="badge">6</div><div><h2>عمليات الأوراق التجارية — الكمبيالات</h2><small>السند الإذني · 7 احتمالات للتصرف</small></div></div>
+    <div class="ch-body">
+      <h3 class="sec">1) تعريف الكمبيالة (الورقة التجارية / السند الإذني)</h3>
+      <div class="note"><span class="lbl">تعريف</span>ورقة (محرّر) <b>مكتوب</b> يتضمّن تعهّدًا بسداد مبلغ محدد <b>بمجرد الاطلاع</b> أو <b>في موعد معيّن</b> لأمر شخص آخر هو <b>المستفيد</b> أو <b>حامل السند</b>.</div>
+      <div class="tree">
+        <div class="root">عملية بيع آجِل</div>
+        <div class="row">
+          <div class="leaf">العميل يُحرِّر كمبيالة أو سند إذني لصالح المنشأة</div>
+          <div class="leaf">← تنشأ <b>ورقة قبض</b> للمنشأة (البائع)</div>
+          <div class="leaf">← تنشأ <b>ورقة دفع</b> للعميل (المشتري)</div>
+        </div>
+      </div>
+
+      <h3 class="sec">2) احتمالات التصرف في الأوراق التجارية (7)</h3>
+      <div class="cards">
+        <div class="card"><h5>1. الاحتفاظ بها</h5><p>لدى حائزها الأصلي حتى تحصيلها في ميعاد الاستحقاق (تحصيل أو رفض)</p></div>
+        <div class="card t2"><h5>2. إرسالها للبنك</h5><p>لتحصيلها نيابة عن حائزها الأصلي</p></div>
+        <div class="card t3"><h5>3. تحويلها (تظهيرها)</h5><p>لطرف ثالث آخر لسداد المستحق له</p></div>
+        <div class="card t4"><h5>4. خصمها (قطعها)</h5><p>لدى أحد البنوك والحصول على قيمتها الحالية</p></div>
+        <div class="card t5"><h5>5. تقديمها كضمان</h5><p>للبنك للحصول على قرض</p></div>
+        <div class="card t6"><h5>6. تجديدها</h5><p>تجديد الكمبيالة المرفوضة بمدّ الأجل</p></div>
+        <div class="card t7"><h5>7. إفلاس المسحوب عليه</h5><p>تحصيل أو عدم تحصيل جزء من المبالغ المستحقة (<b>ديون معدومة</b>)</p></div>
+      </div>
+
+      <h3 class="sec">3) نشأة الكمبيالات — القيود الأساسية</h3>
+      <div class="tw">
+        <table>
+          <thead><tr><th>دفاتر البائع (س)</th><th>دفاتر المشتري (ص)</th></tr></thead>
+          <tbody>
+            <tr><td><b>أ) إثبات المبيعات الآجلة:</b><br>من حـ/ المدينين (ص)<br>إلى حـ/ المبيعات</td>
+                <td><b>أ) إثبات المشتريات الآجلة:</b><br>من حـ/ المشتريات<br>إلى حـ/ الدائنين (س)</td></tr>
+            <tr><td><b>ب) قبول الكمبيالة:</b><br>من حـ/ أوراق القبض<br>إلى حـ/ المدينين (ص)</td>
+                <td><b>ب) تحرير الكمبيالة:</b><br>من حـ/ الدائنين (س)<br>إلى حـ/ أوراق الدفع</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3 class="sec">4) الحالة 1: الاحتفاظ بالكمبيالة حتى تاريخ الاستحقاق</h3>
+      <div class="cards">
+        <div class="card t5"><h5>أ) تم التحصيل في الموعد</h5>
+          <div class="je" style="margin-top:8px">
+            <div class="r d"><span>من حـ/ الخزينة (أو البنك)</span></div>
+            <div class="r c"><span>إلى حـ/ أوراق القبض</span></div>
+            <div class="r"><span style="font-size:13px">المقابل عند المشتري:</span></div>
+            <div class="r d"><span>من حـ/ أوراق الدفع</span></div>
+            <div class="r c"><span>إلى حـ/ الخزينة (أو البنك)</span></div>
+          </div>
+        </div>
+        <div class="card t4"><h5>ب) لم يتم التحصيل (رفض الكمبيالة)</h5>
+          <div class="je" style="margin-top:8px">
+            <div class="r d"><span>من حـ/ المدينين (ص)</span></div>
+            <div class="r c"><span>إلى حـ/ أوراق القبض</span></div>
+            <div class="r"><span style="font-size:13px">+ إثبات سداد مصروفات</span> <b>البروتستو</b></div>
+            <div class="r d"><span>من حـ/ المدينين (ص)</span></div>
+            <div class="r c"><span>إلى حـ/ الخزينة (أو البنك)</span></div>
+          </div>
+        </div>
+      </div>
+
+      <h3 class="sec">5) الحالة 2: إرسال الكمبيالة للبنك للتحصيل</h3>
+      <div class="je">
+        <div class="r d"><span>عند الإرسال: من حـ/ أوراق قبض برسم التحصيل</span><span class="v">××</span></div>
+        <div class="r c"><span>إلى حـ/ أوراق القبض</span><span class="v">××</span></div>
+        <div class="r"><span style="font-size:13px">لا يوجد قيود عند المشتري</span></div>
+        <div class="r d"><span>عند التحصيل: من حـ/ عمولة التحصيل + البنك (حساب جارٍ)</span><span class="v">××</span></div>
+        <div class="r c"><span>إلى حـ/ أوراق قبض برسم التحصيل</span><span class="v">××</span></div>
+        <div class="r d"><span>عند الرفض: من حـ/ المدينون (ص)</span><span class="v">××</span></div>
+        <div class="r c"><span>إلى حـ/ البنك «م. البروتستو» + أوراق قبض برسم التحصيل</span><span class="v">××</span></div>
+      </div>
+
+      <h3 class="sec">6) الحالة 3: تحويل (تظهير) الكمبيالة لطرف ثالث</h3>
+      <div class="je">
+        <div class="ttl">عند التظهير (البائع س ← الطرف الثالث ع)</div>
+        <div class="r d"><span>من حـ/ المشتريات</span><span class="v">××</span></div>
+        <div class="r c"><span>إلى حـ/ الدائنون (ع)</span><span class="v">××</span></div>
+        <div class="r"><span style="font-size:13px">عملية التظهير:</span></div>
+        <div class="r d"><span>من حـ/ الدائنون (ع)</span><span class="v">××</span></div>
+        <div class="r c"><span>إلى حـ/ أوراق القبض</span><span class="v">××</span></div>
+        <div class="r"><span style="font-size:13px">لا يوجد قيود عند المشتري (ص)</span></div>
+      </div>
+      <div class="note tip"><span class="lbl">عند الاستحقاق</span><b>تم السداد</b> ← لا تُجرى قيود عند (س)، وقيود (ع): من حـ/ أوراق الدفع — إلى حـ/ الخزينة. <b>رفض السداد</b> ← تُثبَّت كمبيالة مرفوضة + مصروفات البروتستو لكل الأطراف.</div>
+
+      <h3 class="sec">7) الحالة 4: خصم (قطع) الكمبيالة لدى البنك — الأجيو</h3>
+      <div class="note"><span class="lbl">مفهوم الأجيو</span>يتم خصم الكمبيالة لدى البنك والحصول على قيمتها <b>الحالية</b> مقابل معدل خصم لدى البنك يُسمَّى <b>الأجيو</b>، ويُعتبر مقابله <b>مصروفًا مستحقًا</b> بدفاتر حائز الكمبيالة.</div>
+      <div class="formula">قيمة رسم الخصم (الأجيو) <span class="hl">=</span> القيمة الأسمية للكمبيالة <span class="hl">×</span> معدل الخصم <span class="hl">÷</span> 100 <span class="hl">×</span> المدة<small>الأجيو = مصروف خصم الكمبيالة</small></div>
+
+      <h3 class="sec">8) الحالة 5: تجديد الكمبيالة المرفوضة</h3>
+      <div class="note"><span class="lbl">القاعدة</span>يتم الاتفاق على مدّ أجل الاستحقاق مع تحميل المسحوب عليه كافة المصروفات والفوائد المستحقة من التاريخ القديم حتى الجديد، وتحرير كمبيالة جديدة بالقيمة <b>شاملة</b>: (1) قيمة الكمبيالة القديمة + (2) المصروفات القضائية + (3) الفوائد المتفق عليها بين الطرفين.</div>
+      <div class="je">
+        <div class="r d"><span>من حـ/ المدينون (ص)</span></div>
+        <div class="r c"><span>إلى حـ/ فوائد تجديد الكمبيالة (إيراد)</span></div>
+        <div class="r d"><span>من حـ/ فوائد تجديد الكمبيالة (مصروف)</span></div>
+        <div class="r c"><span>إلى حـ/ الدائنون (س)</span></div>
+        <div class="r d"><span>تحرير كمبيالة بالكامل: من حـ/ أ. قبض (كمبيالة جديدة) — إلى حـ/ المدينون (ص)</span></div>
+        <div class="r d"><span>السداد الجزئي: من حـ/ الخزينة + أ. قبض (بباقي المستحق) — إلى حـ/ المدينون (ص)</span></div>
+      </div>
+
+      <h3 class="sec">9) الحالة 6: إفلاس المسحوب عليه (الديون المعدومة)</h3>
+      <div class="cards">
+        <div class="card t4"><h5>أ) عدم تحصيل الكمبيالة</h5><p>من حـ/ الديون المعدومة — إلى حـ/ المدينين (ص)<br>وفي دفاتر (س): من حـ/ الدائنين (س) — إلى حـ/ التصفية</p></div>
+        <div class="card t5"><h5>ب) تحصيل جزء والباقي ديون معدومة</h5><p>من حـ/ الخزينة (أو البنك) + الديون المعدومة — إلى حـ/ المدينين (ص)<br>وفي دفاتر (س): من حـ/ الدائنين (س) — إلى حـ/ الخزينة + التصفية</p></div>
+      </div>
+      <div class="mnem"><div class="t">حِيلة الحفظ — 7 تصرفات الكمبيالة</div><div class="w">«أحتفظ · أرسل · أظهّر · أخصم · أضمن · أجدد · أفلس»</div><p>ولا تنسَ: كل حالة لها <b>طرفان</b> — البائع (أوراق قبض) والمشتري (أوراق دفع).</p></div>
+    </div>
+  </section>
+</div>
+</div>
+
+<!-- ================= CH7 ================= -->
+<div class="view" id="ch7">
+<div class="wrap">
+  <div class="pagehead"><h1>معالجة الأخطاء المحاسبية</h1><p>أنواع الأخطاء الأربعة · الطريقة المطوّلة والمختصرة · مثال محلول.</p></div>
+  <section class="ch">
+    <div class="ch-head c-sky"><div class="badge">7</div><div><h2>معالجة الأخطاء المحاسبية</h2><small>أنواع الأخطاء · طريقتا التصحيح</small></div></div>
+    <div class="ch-body">
+      <h3 class="sec">1) مقدمة — كيف نكتشف الأخطاء؟</h3>
+      <ul>
+        <li>بمراجعة دقيقة للمستندات الخاصة بعمليات المنظمة ومراجعة قيود اليومية وحسابات الأستاذ وترصيدها.</li>
+        <li>بسهولة عند <b>عدم توازن جانبي ميزان المراجعة</b> ← يعني وجود أخطاء في مراحل التشغيل المحاسبي.</li>
+      </ul>
+
+      <h3 class="sec">2) أنواع الأخطاء المحاسبية (4)</h3>
+      <div class="cards">
+        <div class="card"><h5>1. أخطاء الحذف أو السهو</h5><p>يكون الحذف نتيجة:</p><ul><li>عدم تسجيل عملية بأكملها بدفتر اليومية</li><li>عدم ترحيلها بالكامل إلى حسابات الأستاذ</li><li>عدم تسجيل أو ترحيل أحد طرفي قيد اليومية</li></ul></div>
+        <div class="card t2"><h5>2. أخطاء الارتكاب</h5><p>أهمها:</p><ul><li>إثبات مبلغ مخالف للعملية بطرفي قيد اليومية</li><li>تسجيل اسم الحساب خطأ</li><li>تكرار قيد باليومية أو تكرار ترحيلة بدفتر الأستاذ</li><li>ترحيل المبلغ الصحيح إلى حساب مخالف بدفتر الأستاذ</li></ul></div>
+        <div class="card t3"><h5>3. الأخطاء الفنية</h5><p>عدم التطبيق السليم للمبادئ والقواعد المحاسبية المتعارف عليها، كالخلط بين <b>المصروف الإيرادي</b> و<b>المصروف الرأسمالي</b>.<br>مثال: إضافة مصروفات الصيانة للمبنى بالخطأ إلى حـ/ المباني كأصل ثابت.</p></div>
+        <div class="card t4"><h5>4. الأخطاء المعوَّضة (المتكافئة)</h5><p>تسجيل العملية بطرفي القيد بطريقة سليمة، لكن هناك خطأ في أحد الأطراف <b>يعوّضه خطأ آخر</b> في حساب آخر بنفس المقدار.<br>مثال: كتابة حـ/ المشتريات بدلًا من حـ/ شراء أصل من الأصول الثابتة.</p></div>
+      </div>
+      <div class="note warn"><span class="lbl">لماذا الخطأ المعوَّض خطير؟</span>لأن <b>ميزان المراجعة يظل متوازنًا</b> — فهو لا يكشف هذا النوع من الأخطاء!</div>
+
+      <h3 class="sec">3) طرق تصحيح الأخطاء المحاسبية (2)</h3>
+      <div class="flow">
+        <div class="step on"><b>الطريقة المطوّلة</b>خطوتان</div>
+        <span class="arw">◀</span>
+        <div class="step on2"><b>الطريقة المختصرة</b>خطوة واحدة</div>
+      </div>
+      <div class="cards">
+        <div class="card"><h5>الطريقة المطوّلة</h5><p>على خطوتين:</p><ul><li><b>(أ)</b> إلغاء القيد الخطأ — <b>بدون كشط</b> أي معلومات في الدفاتر</li><li><b>(ب)</b> إثبات القيد أو العملية الصحيحة</li></ul></div>
+        <div class="card t5"><h5>الطريقة المختصرة</h5><p>بعد اكتشاف الخطأ يُحدَّد مكانه في القيد ويُصحَّح <b>مباشرةً</b> بقيد يومية جديد (تصحيح طرف القيد الخطأ).</p><p style="font-weight:800;color:#7c3aed">في الواقع التطبيقي: يُفضَّل اتباع الطريقة المطوّلة، خاصة أن هناك أخطاء لا يمكن تصحيحها بالمختصرة.</p></div>
+      </div>
+
+      <h3 class="sec">4) مثال محلول — تطبيق الطريقتين</h3>
+      <div class="note">في 15/12: شراء بضاعة بالأجل بمبلغ 52,000 — سُجِّلت العملية بالخطأ كالتالي:</div>
+      <div class="je">
+        <div class="ttl">القيد الخطأ</div>
+        <div class="r d"><span>من حـ/ المشتريات</span><span class="v">15/2</span></div>
+        <div class="r c"><span>إلى حـ/ الدائنون</span><span class="v">25,000</span></div>
+        <div class="r" style="color:#be123c;font-size:13px"><span>الخطأ: في طرف واحد فقط، وقيمة خاطئة، وبالتالي توازن القيد مختل</span></div>
+      </div>
+      <div class="je">
+        <div class="ttl">الحل بالطريقة المطوّلة</div>
+        <div class="r"><span style="font-size:13px"><b>الخطوة (أ): إلغاء القيد الخطأ</b></span></div>
+        <div class="r d"><span>من حـ/ الدائنون</span><span class="v">25,000</span></div>
+        <div class="r c"><span>إلى حـ/ المشتريات</span><span class="v">52,000</span></div>
+        <div class="r"><span style="font-size:13px"><b>الخطوة (ب): إثبات القيد الصحيح</b></span></div>
+        <div class="r d"><span>من حـ/ المشتريات</span><span class="v">52,000</span></div>
+        <div class="r c"><span>إلى حـ/ الدائنون</span><span class="v">52,000</span></div>
+      </div>
+      <div class="mnem"><div class="t">حِيلة الحفظ — الطريقتان</div><div class="w">المطوّلة = «امسح ثم اكتب» &nbsp;|&nbsp; المختصرة = «اكتب الفرق فقط»</div><p>و<b>لا للكشط أبدًا</b> — الإلغاء يكون بقيد عكسي دائمًا.</p></div>
+    </div>
+  </section>
+</div>
+</div>
+
+<!-- ================= CHEAT ================= -->
+<div class="view" id="cheat">
+<div class="wrap">
+  <div class="pagehead"><h1>ورقة المراجعة الأخيرة</h1><p>اقرأها قبل الامتحان بـ 10 دقائق — كل القوانين في صفحة واحدة.</p></div>
+  <section class="ch">
+    <div class="ch-head c-slate"><div class="badge">★</div><div><h2>ورقة المراجعة الأخيرة</h2><small>القوانين · طبيعة الحسابات · خطة المراجعة</small></div></div>
+    <div class="ch-body">
+      <h3 class="sec">1) كل القوانين والمعادلات</h3>
+      <div class="tw">
+        <table>
+          <thead><tr><th>المفهوم</th><th>الصيغة / القاعدة</th></tr></thead>
+          <tbody>
+            <tr><td>معادلة الميزانية</td><td>الأصول = الخصوم + حقوق الملكية &nbsp;|&nbsp; الأصول − الخصوم = صافي الأصول = رأس المال</td></tr>
+            <tr><td>نتيجة قائمة الدخل</td><td>الإيرادات − المصروفات = ربح / خسارة / تعادل</td></tr>
+            <tr><td>مجمل الربح</td><td>صافي المبيعات − تكلفة المبيعات</td></tr>
+            <tr><td>تكلفة المبيعات</td><td>(أول المدة + المشتريات + نقل المشتريات − مردودات المشتريات) − آخر المدة</td></tr>
+            <tr><td>القيد المزدوج</td><td>كل عملية لها طرف مدين وآخر دائن متساويان في القيمة</td></tr>
+            <tr><td>طبيعة الحسابات</td><td>أصول ومصروفات = مدين &nbsp;|&nbsp; خصوم + حقوق ملكية + إيرادات = دائن</td></tr>
+            <tr><td>الأجيو (خصم الكمبيالة)</td><td>القيمة الأسمية × معدل الخصم ÷ 100 × المدة</td></tr>
+            <tr><td>الرصيد</td><td>مدين / دائن / صفر (تعادل)</td></tr>
+            <tr><td>ميزان المراجعة</td><td>يُعدّ خارج الدفاتر — للتحقق من صحة التسجيل والترحيل والترصيد</td></tr>
+            <tr><td>القائمة النقدية الوحيدة</td><td>قائمة التدفقات النقدية (بينما الباقي على أساس الاستحقاق)</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3 class="sec">2) طبيعة الحسابات في جدول واحد</h3>
+      <div class="tw">
+        <table>
+          <thead><tr><th>نوع الحساب</th><th>الأصل</th><th>يزيد (+)</th><th>ينقص (−)</th></tr></thead>
+          <tbody>
+            <tr><td><b>الأصول</b></td><td>مدين</td><td>مدين</td><td>دائن</td></tr>
+            <tr><td><b>الخصوم</b></td><td>دائن</td><td>دائن</td><td>مدين</td></tr>
+            <tr><td><b>حقوق الملكية</b></td><td>دائن</td><td>دائن</td><td>مدين</td></tr>
+            <tr><td><b>الإيرادات</b></td><td>دائن</td><td>دائن</td><td>مدين</td></tr>
+            <tr><td><b>المصروفات</b></td><td>مدين</td><td>مدين</td><td>دائن</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3 class="sec">3) الدورة المحاسبية في سطر واحد</h3>
+      <div class="flow">
+        <div class="step on"><b>1</b>تحليل</div><span class="arw">◀</span>
+        <div class="step on"><b>2</b>اليومية</div><span class="arw">◀</span>
+        <div class="step on2"><b>3</b>الأستاذ</div><span class="arw">◀</span>
+        <div class="step on3"><b>4</b>ميزان المراجعة</div><span class="arw">◀</span>
+        <div class="step on4"><b>5و6</b>التسويات</div><span class="arw">◀</span>
+        <div class="step on5"><b>7</b>القوائم</div><span class="arw">◀</span>
+        <div class="step on5"><b>8</b>الإقفال</div>
+      </div>
+
+      <h3 class="sec">4) القوائم المالية الأربع</h3>
+      <div class="cards">
+        <div class="card"><h5>قائمة الدخل</h5><p>إيرادات − مصروفات = ربح/خسارة</p></div>
+        <div class="card t2"><h5>قائمة المركز المالي</h5><p>أصول = خصوم + حقوق ملكية</p></div>
+        <div class="card t3"><h5>قائمة التدفقات النقدية</h5><p>القائمة الوحيدة على الأساس النقدي</p></div>
+        <div class="card t4"><h5>قائمة التغيرات في حقوق الملكية</h5><p>رأس المال + أرباح − مسحوبات</p></div>
+      </div>
+
+      <div class="mnem"><div class="t">حِيلة الحفظ الجامعة</div><div class="w">أصل ومصروف ← مدين &nbsp;|&nbsp; خصم وملكية وإيراد ← دائن</div><p>والميزانية دائمًا متوازنة: <b>الأصول = الخصوم + حقوق الملكية</b>.</p></div>
+
+      <h3 class="sec">5) خطة مراجعة سريعة</h3>
+      <div class="cards">
+        <div class="card"><h5>الجلسة 1 — 30 دقيقة</h5><p>القسم 1: المفهوم · الأهداف · الفروض والمبادئ</p></div>
+        <div class="card t2"><h5>الجلسة 2 — 45 دقيقة</h5><p>القسمان 2 و3 مع حل مثال «سعيد» بنفسك</p></div>
+        <div class="card t3"><h5>الجلسة 3 — 45 دقيقة</h5><p>القسم 4: الدورة + قواعد المدين والدائن + ميزان المراجعة</p></div>
+        <div class="card t4"><h5>الجلسة 4 — 60 دقيقة</h5><p>القسمان 5 و6: اكتب القيود بيدك من غير ما تبصّ</p></div>
+        <div class="card t5"><h5>الجلسة 5 — 30 دقيقة</h5><p>القسم 7 + هذه الورقة</p></div>
+      </div>
+    </div>
+  </section>
+  <div class="footer">ملخص مذاكرة — مقرر محاسبة مالية (1) · أكاديمية السادات للعلوم الإدارية (2022م / 1444هـ)</div>
+</div>
+</div>
+
+<nav class="pager" id="pager" style="display:none;max-width:1060px;margin:26px auto 10px;padding:0 18px"></nav>
+
+<script>
+var CH=[
+ {id:'ch1',t:'الإطار النظري للمحاسبة المالية',n:'القسم 1',c:['#dc2626','#ef4444']},
+ {id:'ch2',t:'عرض وإعداد القوائم المالية',n:'القسم 2',c:['#e11d48','#f43f5e']},
+ {id:'ch3',t:'معادلة الميزانية',n:'القسم 3',c:['#be185d','#ec4899']},
+ {id:'ch4',t:'الدورة المحاسبية وتحليل العمليات',n:'القسم 4',c:['#a21caf','#d946ef']},
+ {id:'ch5',t:'العمليات التجارية للمشروع',n:'القسم 5',c:['#9333ea','#a855f7']},
+ {id:'ch6',t:'الأوراق التجارية — الكمبيالات',n:'القسم 6',c:['#7c3aed','#8b5cf6']},
+ {id:'ch7',t:'معالجة الأخطاء المحاسبية',n:'القسم 7',c:['#6d28d9','#7c3aed']},
+ {id:'cheat',t:'ورقة المراجعة الأخيرة',n:'ملحق',c:['#4c1d95','#6d28d9']}
+];
+var ORDER=['home'].concat(CH.map(function(x){return x.id;}));
+
+function buildChips(){
+  var h='';
+  CH.forEach(function(x){
+    h+='<a data-go="'+x.id+'" style="--c1:'+x.c[0]+';--c2:'+x.c[1]+'">'+(x.id==='cheat'?'★':x.id.replace('ch',''))+'</a>';
+  });
+  document.getElementById('chips').innerHTML=h;
+}
+
+function show(id){
+  if(document.getElementById(id)===null) id='home';
+  var vs=document.querySelectorAll('.view');
+  for(var i=0;i<vs.length;i++){vs[i].className='view'+(vs[i].id===id?' on':'');}
+  var bar=document.getElementById('bar');
+  var pg=document.getElementById('pager');
+  var cr=document.getElementById('crumb');
+  if(id==='home'){
+    bar.style.display='none';pg.style.display='none';
+  }else{
+    var idx=-1;
+    for(var j=0;j<CH.length;j++){if(CH[j].id===id) idx=j;}
+    var cur=CH[idx];
+    bar.style.display='block';
+    cr.textContent=cur.n+' من 8 — '+cur.t;
+    var chips=document.querySelectorAll('#chips a');
+    for(var k=0;k<chips.length;k++){
+      chips[k].className=(chips[k].getAttribute('data-go')===id)?'cur':'';
+    }
+    var pv=(idx>0)?CH[idx-1]:{id:'home',t:'الفهرس الرئيسي'};
+    var nx=(idx<CH.length-1)?CH[idx+1]:{id:'home',t:'رجوع إلى الفهرس'};
+    pg.style.display='flex';
+    pg.innerHTML='<a data-go="'+pv.id+'"><span>السابق</span><b>'+pv.t+'</b></a>'+
+                 '<a class="next" data-go="'+nx.id+'"><span>التالي</span><b>'+nx.t+'</b></a>';
+  }
+  window.scrollTo(0,0);
+  try{history.replaceState(null,'','#'+id);}catch(e){}
+}
+
+document.addEventListener('click',function(e){
+  var el=e.target;
+  while(el&&el!==document.body){
+    if(el.hasAttribute&&el.hasAttribute('data-go')){
+      e.preventDefault();
+      show(el.getAttribute('data-go'));
+      return;
+    }
+    el=el.parentNode;
+  }
+});
+
+window.addEventListener('hashchange',function(){
+  show((location.hash||'#home').substring(1));
+});
+
+buildChips();
+show((location.hash||'#home').substring(1));
+</script>
+
+</body>
+</html>
